@@ -1,0 +1,24 @@
+<div>
+<h1 style="text-align: center;">Login</h1>
+</div>
+<form   action="/login" method="post"  class="pl-5">
+  <div class="form-group >
+    <label for="Name">Name</label>
+    <input type="text" class="form-control" style="width: 50%;"" name="Name" placeholder="Name">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" style="width: 50%;" name="Email"  aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" style="width: 50%;"" name="Password" placeholder="Password">
+  </div>
+   {{#if loginErr}}
+   <p class="text-danger">Login Failed recheck your email / password</p>
+   {{/if}}
+
+  <a href="/signup">Create new account?</a>
+  <br>
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
