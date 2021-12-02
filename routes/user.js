@@ -75,7 +75,11 @@ router.get('/addtocart/:id',verifyLogin,(req,res)=>{
 
 router.get('/cart',verifyLogin,async (req,res)=>{
 let products=await userHelper.getCartProducts(req.session.user._id)
-let total=await userHelper.getTotalAmount(req.session.user._id)
+let total=0
+if(products.length>0){
+   total=await userHelper.getTotalAmount(req.session.user._id)
+}
+
 console.log(products)
 res.render('user/cart',{products,user:req.session.user._id,total})
   
@@ -100,8 +104,53 @@ router.post('/remove-cart-products',(req,res,next)=>{
 router.get('/place-order',verifyLogin,async(req,res)=>{
   
   let total=await userHelper.getTotalAmount(req.session.user._id)
-  console.log(total)
-  res.render('user/order-page',{total})
+  
+  res.render('user/order-page',{total,user: req.session.user})
+})
+
+router.post('/place-order',verifyLogin,async(req,res)=>{
+  let products=await userHelper.getCartProductList(req.session.user._id)
+    let price=await userHelper.getTotalAmount(req.session.user._id)
+  userHelper.PlaceOrder(req.body,products,price).then((orderId)=>{
+    if(req.body['payment-method']=='COD'){
+      res.json({cod_success:true})
+    }else{
+      userHelper.generateRazorPay(orderId,price).then((response)=>{
+       res.json(response)
+      })
+    }
+
+    
+  })
+
+})
+
+router.get('/ordered-response',(req,res)=>{
+  res.render('user/ordered-response',{user:req.body.userId})
+})
+
+router.get('/orders', async (req,res)=>{
+  let products=await userHelper.getOrderList(req.session.user._id)
+  
+  res.render('user/order-list',{products,user:req.session.user})
+})
+
+router.get('/view-order-products/:id',async(req,res)=>{
+  let products=await userHelper.getOrderProducts(req.params.id)
+  
+  console.log(products)
+  res.render('user/view-order-products',{user:req.session.user,products})
+})
+
+router.post('/verify-payment',(req,res)=>{
+  console.log(req.body)
+  userHelper.verifyPayment(req.body).then(()=>{
+   userHelper.changePaymentStatus(req.body['order[receipt]']).then(()=>{
+     res.json({status:true})
+   })
+  }).catch((err)=>{
+    res.json({status:false})
+  })
 })
 
 module.exports = router;
