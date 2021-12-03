@@ -5,7 +5,7 @@ var productHelper=require('../helpers/product-helpers')
 var userHelper=require('../helpers/user-helpers')
 
 const verifyLogin=(req,res,next)=>{
-  if(req.session.loggedIn){
+  if(req.session.adminloggedIn){
     next()
   }else{
     res.redirect('/admin/login')
@@ -14,16 +14,18 @@ const verifyLogin=(req,res,next)=>{
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  let user=req.session.user
-  console.log(user)
+  let admin=req.session.admin
+
+  console.log(admin)
   productHelper.getallproducts().then((products)=>{
-    res.render('admin/view-product',{products,user,admin:true});
+    res.render('admin/view-product',{products,admin,adminn:true});
   })
 
 });
 
 router.get('/add-product', verifyLogin,(req,res,next)=>{
-  res.render('admin/add-product',{admin:true});
+  let admin=req.session.admin
+  res.render('admin/add-product',{admin,adminn:true});
   
 })
 router.post('/add-product',(req,res,next)=>{
@@ -42,45 +44,38 @@ productHelper.addProduct(req.body,(id)=>{
 })
 })
 
-router.get('/login',(req,res)=>{
-  if(req.session.loggedIn){
-    res.redirect("/admin")
-  }
-  else{
 
-  res.render("admin/login",{"loginErr":req.session.loginErr})
-  req.session.loginErr=false
+
+router.get('/login',(req,res)=>{
+  if(req.session.admin){
+    res.redirect("/admin")
+  }else{
+  res.render("admin/login",{"loginErr":req.session.adminloginErr})
+  req.session.adminloginErr=false
+  
   }
 })
-router.get('/signup',(req,res)=>{
-  res.render("admin/signup")
-})
-router.post('/signup',(req,res)=>{
-  userHelper.doSignup(req.body).then((response)=>{
-    console.log(response)
-    req.session.loggedIn=true
-      req.session.user=response.user
-    res.redirect('/admin')
-  })
-})
+
 
 router.post('/login',(req,res)=>{
-  userHelper.doLogin(req.body).then((response)=>{
+  userHelper.doAdminLogin(req.body).then((response)=>{
     if(response.status){
-      req.session.loggedIn=true
-      req.session.user=response
+      req.session.admin=response.admin
+      req.session.adminloggedIn=true
       res.redirect('/admin')
-    }else{
-      req.session.loginErr=true
+    }
+    else{
+      req.session.adminloginErr="invalid username or password"
       res.redirect('/admin/login')
     }
   })
 })
-
 router.get('/logout',(req,res)=>{
-  req.session.destroy()
+  req.session.admin=null
+  req.session.adminloggedIn=false
   res.redirect('/admin')
 })
+
 
 router.get('/delete-product', verifyLogin,(req,res)=>{
    let proId=req.query.id
@@ -94,7 +89,7 @@ router.get('/edit-product',async(req,res)=>{
   let proId=req.query.id
   let product=await productHelper.getProductDetails(proId)
   console.log(product)
-  res.render("admin/edit-product",{user,admin:true,product})
+  res.render("admin/edit-product",{user,adminn:true,product})
   
 })
 
@@ -109,6 +104,13 @@ router.post('/edit-product',(req,res)=>{
       image.mv('./public/product-images/'+proId+'.jpg')
     }
   })
+})
+
+router.get('/all-orders', async (req,res)=>{
+  console.log('call vann all orders')
+  let products=await userHelper.getAllOrder()
+  console.log('products')
+  res.render('admin/all-orders',{products})
 })
 
 module.exports = router;

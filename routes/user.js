@@ -6,7 +6,7 @@ var router = express.Router();
 var productHelper=require('../helpers/product-helpers')
 var userHelper=require('../helpers/user-helpers')
 const verifyLogin=(req,res,next)=>{
-  if(req.session.loggedIn){
+  if(req.session.userloggedIn){
     next()
   }else{
     res.redirect('/login')
@@ -28,42 +28,49 @@ router.get('/', async function(req, res, next) {
  
 });
 router.get('/signup',(req,res)=>{
-  if(req.session.loggedIn){
+  if(req.session.userloggedIn){
     res.redirect("/")
   }else{
   res.render("user/signup")
   }
 })
 router.get('/login',(req,res)=>{
-  if(req.session.loggedIn){
+  console.log('call vannu');
+  if(req.session.userloggedIn){
+    console.log('check chythu');
     res.redirect("/")
   }else{
-  res.render("user/login",{"loginErr":req.session.loginErr})
-  req.session.loginErr=false
+    console.log('Error vannu user illa');
+  res.render("user/login",{"loginErr":req.session.userloginErr})
+  req.session.userloginErr=false
+  
   }
 })
 router.post('/signup',(req,res)=>{
   userHelper.doSignup(req.body).then((response)=>{
     console.log(response)
+    req.session.user=response.user
+    req.session.user.loggedIn=true
+      
     res.redirect('/')
   })
 })
 router.post('/login',(req,res)=>{
   userHelper.doLogin(req.body).then((response)=>{
     if(response.status){
-      
-      req.session.loggedIn=true
       req.session.user=response.user
+      req.session.userloggedIn=true
       res.redirect('/')
     }
     else{
-      req.session.loginErr=true
+      req.session.userloginErr="invalid username or password"
       res.redirect('/login')
     }
   })
 })
 router.get('/logout',(req,res)=>{
-  req.session.destroy()
+  req.session.user=null
+  req.session.userloggedIn=false
   res.redirect('/')
 })
 

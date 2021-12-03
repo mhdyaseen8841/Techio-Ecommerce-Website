@@ -43,6 +43,30 @@ module.exports={
             }
         })
     },
+    doAdminLogin:(userData)=>{
+        return new Promise(async(resolve,reject)=>{
+            let loginStatus=false
+            let response={}
+            let admin=await db.get().collection(collection.ADMIN_COLLECTION).findOne({Email:userData.Email})
+            if(admin){
+                bcrypt.compare(userData.Password,admin.Password).then((status)=>{
+                    if(status){
+                        console.log("login success")
+                        response.admin=admin
+                        response.status=true
+                        resolve(response)
+                    }
+                    else{
+                        console.log("login failed");
+                        resolve({status:false})
+                    }
+                })
+            }else{
+                console.log("login failed")
+                resolve({status:false})
+            }
+        })
+    },
     addToCart:(proId,userId)=>{
         let proObj={
             item:objectId(proId),
@@ -248,6 +272,15 @@ module.exports={
         })
     },
 getOrderList:(userId)=>{
+    return new Promise(async(resolve,reject)=>{
+        let orders=await db.get().collection(collection.ORDER_COLLECTION).find({userId:objectId(userId)}).toArray()
+        console.log('orders list')
+        console.log(orders);
+        resolve(orders)
+    })
+},
+getAllOrder:()=>{
+   let userId='61a8b40e5ee4f2c937408f1d';
     return new Promise(async(resolve,reject)=>{
         let orders=await db.get().collection(collection.ORDER_COLLECTION).find({userId:objectId(userId)}).toArray()
         console.log('orders list')

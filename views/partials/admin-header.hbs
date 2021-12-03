@@ -13,7 +13,7 @@
                         <a class="nav-link" href="#">All Product<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">All Orders</a>
+                        <a class="nav-link" href="/admin/all-orders">All Orders</a>
                     </li>
 
 
@@ -23,8 +23,8 @@
                 </ul>
                <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{#if user}}
-      {{user.Name}}
+      {{#if admin}}
+      {{admin.Name}}
       {{else}}
        Account
       {{/if}}
@@ -32,11 +32,11 @@
   </button>
   
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    {{#if user}}
+    {{#if admin}}
     <a class="dropdown-item" href="/admin/logout">Logout</a>
     {{else}}
     <a class="dropdown-item" href="/admin/login">Login</a>
-    <a class="dropdown-item" href="/admin/signup">Signup</a>
+    
 
   {{/if}}
   

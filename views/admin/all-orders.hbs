@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row mt-4">
+    <h1 class="pl-3">Your Orders</h1>
+       
+    </div>
+<table class="table mt-5">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Date</th>
+      <th scope="col">Address</th>
+      <th>Pincode</th>
+      <th>Mobile</th>     
+      <th>Amount</th>
+      <th>Payment</th>
+<th>Details</th>
+      <th scope="col">Image</th>   
+    </tr>
+  </thead>
+  <tbody>
+      {{#each products}}
+    <tr>
+      <th scope="row">{{@key}}</th>
+      <td>{{this.date}}</td>
+      <td>{{this.deliveryDetails.address}}</td>
+      <td>{{this.deliveryDetails.pincode}}</td>
+      <td>{{this.deliveryDetails.mobile}}</td>
+      <td>Rs: {{this.totalAmount}}</td>
+      <td>{{this.paymentMethod}}</td>
+      <td>{{this.status}}</td>
+    <td><a type="button" class="btn btn-success" href="/view-order-products/{{this._id}}">View Product</a></td>
+      
+    </tr>
+    {{/each}}
+     
+   
+  </tbody>
+</table>
+</div>
