@@ -1,19 +1,69 @@
-<div>
-<h1 style="text-align: center;">Signup</h1>
-</div>
-<form action="/signup" method="post" class="pl-5">
-  <div class="form-group >
-    <label for="Name">Name</label>
-    <input type="text" class="form-control" style="width: 50%;"" name="Name" placeholder="Name">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" style="width: 50%;" name="Email"  aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" style="width: 50%;"" name="Password" placeholder="Password">
-  </div>
+
+<div class="container">
+
+
+	<div class="col-sm-4 pt-5" style="margin: auto;
+width: 60%;
+
+padding: 10px;" >
+
+
+<div class="card ">
+<article class="card-body">
+	<h4 class="card-title text-center mb-4 mt-1">Sign Up</h4>
+	<hr>
+
+
+<p class="text-success text-center">We'll never share your credentials with anyone else.</p>
+
+	
+  
+  <form  action="/signup" method="post" >
+
+
+
+<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+		 </div>
+		<input name="Name" class="form-control" placeholder="Name" type="text">
+	</div> <!-- input-group.// -->
+	</div>
+
+
+
+ 
+	<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fas fa-envelope"></i> </span>
+		 </div>
+		<input name="Email" class="form-control" placeholder="Enter Email" type="email">
+	</div> <!-- input-group.// -->
+	</div> <!-- form-group// -->
+	<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		 </div>
+	    <input class="form-control" name="Password" placeholder="******" type="password">
+	</div> <!-- input-group.// -->
+	</div> <!-- form-group// -->
+	<div class="form-group">
+	<button type="submit" class="btn btn-primary btn-block"> Login  </button>
+	</div> <!-- form-group// -->
+	<p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
   <a href="/login">Already have account?</a>
-  <br>
-  <button type="submit" class="btn btn-primary">Signup</button>
-</form>
+	</form>
+</article>
+</div> <!-- card.// -->
+
+	</div> <!-- col.// -->
+
+
+
+
+
+
+</div>

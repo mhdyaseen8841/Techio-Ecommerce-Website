@@ -90,7 +90,7 @@ router.get('/edit-product',async(req,res)=>{
   let proId=req.query.id
   let product=await productHelper.getProductDetails(proId)
   console.log(product)
-  res.render("admin/edit-product",{user,adminn:true,product})
+  res.render("admin/edit-product",{user,admin:true,product})
   
 })
 

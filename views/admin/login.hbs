@@ -1,6 +1,4 @@
-<div>
-<h1 style="text-align: center;">Admin Login</h1>
-</div>
+<!--
 <form   action="/admin/login" method="post"  class="pl-5">
 
   <div class="form-group >
@@ -20,4 +18,90 @@
   <br>
   <button type="submit" class="btn btn-primary">Login</button>
 </form>
+-->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+
+
+	<div class="col-sm-4 pt-5" style="margin: auto;
+width: 60%;
+
+padding: 10px;" >
+
+
+<div class="card ">
+<article class="card-body">
+	<h4 class="card-title text-center mb-4 mt-1">Sign in</h4>
+	<hr>
+
+  {{#if loginErr}}
+<p class="text-danger text-center" > Login Failed Try again </p>
+{{else}}
+<p class="text-success text-center">We'll never share your credentials with anyone else.</p>
+
+
+{{/if}}
+
+	
+	
+  
+  <form  action="/admin/login" method="post" >
+
+
+
+<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+		 </div>
+		<input name="Name" class="form-control" placeholder="Name" type="text">
+	</div> <!-- input-group.// -->
+	</div>
+
+
+
+ 
+	<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fas fa-envelope"></i> </span>
+		 </div>
+		<input name="Email" class="form-control" placeholder="Enter Email" type="email">
+	</div> <!-- input-group.// -->
+	</div> <!-- form-group// -->
+	<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		 </div>
+	    <input class="form-control" name="Password" placeholder="******" type="password">
+	</div> <!-- input-group.// -->
+	</div> <!-- form-group// -->
+	<div class="form-group">
+	<button type="submit" class="btn btn-primary btn-block"> Login  </button>
+	</div> <!-- form-group// -->
+	<p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
+	</form>
+</article>
+</div> <!-- card.// -->
+
+	</div> <!-- col.// -->
+
+
+
+</div>

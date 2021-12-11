@@ -380,7 +380,7 @@ pre {
 
 
 
-.card {
+.procard {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     max-width: 200px;
     margin: auto;
@@ -436,4 +436,11 @@ pre {
     justify-content: center;
     align-items: center;
     font-weight: 300;
+  }
+
+  .proContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+    display: flex;
   }

@@ -166,4 +166,19 @@ router.post('/verify-payment',(req,res)=>{
   })
 })
 
+
+router.get('/productview',async (req,res)=>{
+  
+  let proId=req.query.id
+  console.log(proId);
+
+  let product=await productHelper.getProductDetails(proId)
+  console.log(product)
+  res.render('user/product',{product})
+  
+})
+
+
+
+
 module.exports = router;

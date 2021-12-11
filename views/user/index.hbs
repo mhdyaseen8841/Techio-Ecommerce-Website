@@ -2,7 +2,7 @@
 <section>
 
   <!--Carousel Wrapper-->
-  <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+  <div id="carousel-example-2" class="carousel slide carousel-fade"  data-ride="carousel">
     <!--Indicators-->
     <ol class="carousel-indicators">
       <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
@@ -14,42 +14,42 @@
     <div class="carousel-inner" role="listbox">
       <div class="carousel-item active">
         <div class="view">
-          <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Others/clothes(5)-crop.jpg"
+          <img class="d-block w-100" style="height: 450px;"  src="ad/c1.jpg"
             alt="First slide">
           <a href="#!">
             <div class="mask rgba-black-light"></div>
           </a>
         </div>
         <div class="carousel-caption">
-          <h3 class="h3-responsive">First shop item</h3>
+         <!-- <h3 class="h3-responsive">First shop item</h3> -->
           <p>First text</p>
         </div>
       </div>
       <div class="carousel-item">
         <!--Mask color-->
         <div class="view">
-          <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Others/clothes(4)-crop.jpg"
+          <img class="d-block w-100 " style="height: 450px;"  src="ad/c2.jpg"
             alt="Second slide">
           <a href="#!">
             <div class="mask rgba-black-light"></div>
           </a>
         </div>
         <div class="carousel-caption">
-          <h3 class="h3-responsive">Second shop item</h3>
+         <!-- <h3 class="h3-responsive">First shop item</h3> -->
           <p>Secondary text</p>
         </div>
       </div>
       <div class="carousel-item">
         <!--Mask color-->
         <div class="view">
-          <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Others/clothes(3)-crop.jpg"
+          <img class="d-block w-100" style="height: 450px;" src="ad/c3.jpg"
             alt="Third slide">
           <a href="#!">
             <div class="mask rgba-black-light"></div>
           </a>
         </div>
         <div class="carousel-caption">
-          <h3 class="h3-responsive">Third shop item</h3>
+         <!-- <h3 class="h3-responsive">First shop item</h3> -->
           <p>Third text</p>
         </div>
       </div>
@@ -146,8 +146,8 @@ Dedicated 24/7 support
         <div class="container">
           <div class="row  pt-4 ">
               {{#each lap}}
-        <div class="card col-md-3 col-sm-6"  >
-          <img  src="product-images/{{this._id}}.jpg" alt="Denim Jeans" style="width:100%" >
+        <div class="card procard col-md-3 col-sm-6"  >
+      <a href="/productview/?id={{this._id}}" > <img  src="product-images/{{this._id}}.jpg" alt="Laptop" style="width:100%" > </a>
           <h3 class="prod-card-text">{{this.Name}}</h3>
           <p class="price">₹{{this.Price}}</p>
           
@@ -186,8 +186,8 @@ Dedicated 24/7 support
         <div class="container">
           <div class="row  pt-4 ">
               {{#each phone}}
-        <div class="card col-md-3 col-sm-6"  >
-          <img  src="product-images/{{this._id}}.jpg" alt="Denim Jeans" style="width:100%" >
+        <div class="procard card col-md-3 col-sm-6"  >
+         <a href="/product-view/?id={{this._id}}"> <img  src="product-images/{{this._id}}.jpg" alt="Mobile" style="width:100%" > </a>
           <h3 class="prod-card-text">{{this.Name}}</h3>
           <p class="price">₹{{this.Price}}</p>
           
@@ -227,8 +227,8 @@ Dedicated 24/7 support
         <div class="container">
           <div class="row  pt-4 ">
               {{#each accessories}}
-        <div class="card col-md-3 col-sm-6"  >
-          <img  src="product-images/{{this._id}}.jpg" alt="Denim Jeans" style="width:100%" >
+        <div class="procard card col-md-3 col-sm-6"  >
+         <a> <img  src="product-images/{{this._id}}.jpg" alt="Accessories" style="width:100%" ></a> 
           <h3 class="prod-card-text">{{this.Name}}</h3>
           <p class="price">₹{{this.Price}}</p>
           
@@ -268,7 +268,7 @@ Dedicated 24/7 support
     <div class="container">
 
       <!-- Grid row-->
-      <div class="row py-4 d-flex align-items-center">
+      <div class="row py-4 d-flex align-items-center text-white">
 
         <!-- Grid column -->
         <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
