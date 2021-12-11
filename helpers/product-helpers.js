@@ -10,10 +10,46 @@ module.exports={
     },
     getallproducts:()=>{
         return new Promise(async (resolve,reject)=>{
+
+            
             let product= await db.get().collection(collection.PRODUCT_COLLECTION).find().toArray()
+            
+            console.log(product);
             resolve(product)
         })
     },
+    getProductLaptop:()=>{
+        return new Promise(async (resolve,reject)=>{
+            let prod="gaming laptop"
+              
+            let products= await db.get().collection(collection.PRODUCT_COLLECTION).find({Category:prod}).toArray()
+            
+            resolve(products)
+
+        })
+    },
+    getProductSmartphone:()=>{
+        return new Promise(async (resolve,reject)=>{
+            let prod="smart phone"
+              
+            let products= await db.get().collection(collection.PRODUCT_COLLECTION).find({Category:prod}).toArray()
+            
+            resolve(products)
+
+        })
+    },
+    getProductAccessories:()=>{
+        return new Promise(async (resolve,reject)=>{
+            let prod="accessories"
+            let products= await db.get().collection(collection.PRODUCT_COLLECTION).find({Category:prod}).toArray()
+            resolve(products)
+
+        })
+    },
+
+    
+
+
     deleteProduct:(proId)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.PRODUCT_COLLECTION).deleteOne({_id:objectId(proId)}).then((response)=>{

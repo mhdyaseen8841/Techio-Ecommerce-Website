@@ -29,7 +29,8 @@ router.get('/add-product', verifyLogin,(req,res,next)=>{
   
 })
 router.post('/add-product',(req,res,next)=>{
-
+  console.log("hloooooooooooooooooooooo");
+console.log(req.body)
 productHelper.addProduct(req.body,(id)=>{
   console.log(id)
   let image=req.files.Image

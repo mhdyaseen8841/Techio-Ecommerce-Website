@@ -1,27 +1,426 @@
+<!--Section: Block Content-->
+<section>
 
-    <section>
-        <div class="container mt-5">
-            <div class="row  pl-5">
-                {{#each products}}
-                <div class="col-md-3 ">
-                    <div class="card ">
-                        <img class="card-img-top" style="width: auto; height:300px" src="product-images/{{this._id}}.jpg"
-                                                  
-                            alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{this.Name}}</h5>
-                            <p class="card-text">Rs.{{this.Price}}</p>
-                            <p class="card-text">{{this.Category}}</p>
-                            <button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to cart</button>
-                        </div>
-                    </div>
+  <!--Carousel Wrapper-->
+  <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel-example-2" data-slide-to="1"></li>
+      <li data-target="#carousel-example-2" data-slide-to="2"></li>
+    </ol>
+    <!--/Indicators-->
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item active">
+        <div class="view">
+          <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Others/clothes(5)-crop.jpg"
+            alt="First slide">
+          <a href="#!">
+            <div class="mask rgba-black-light"></div>
+          </a>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive">First shop item</h3>
+          <p>First text</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <!--Mask color-->
+        <div class="view">
+          <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Others/clothes(4)-crop.jpg"
+            alt="Second slide">
+          <a href="#!">
+            <div class="mask rgba-black-light"></div>
+          </a>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive">Second shop item</h3>
+          <p>Secondary text</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <!--Mask color-->
+        <div class="view">
+          <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Others/clothes(3)-crop.jpg"
+            alt="Third slide">
+          <a href="#!">
+            <div class="mask rgba-black-light"></div>
+          </a>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive">Third shop item</h3>
+          <p>Third text</p>
+        </div>
+      </div>
+    </div>
+    <!--/Slides-->
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    <!--/Controls-->
+  </div>
+  <!--/Carousel Wrapper-->
+
+</section>
+<!--Section: Block Content-->
+
+
+  
+   <!--Our Highlights section starts-->
+        <section class="our-highlights">
+          <div class="container">
+            <div class="row hightlights-row pt-5 " >
+              <div class="col-md-3 col-sm-6 col-12 highlights-allpadding">
+                <i class="fas fa-shipping-fast float-left fa-2x highlight-icon " style="color: #007bff;"></i>
+                <div class=" highlight-captions">
+                  <h6>Fastest Delivery</h6>
+                <pre style="font-size: 11px;">
+For all oders over ₹500
+                </pre>
                 </div>
-                {{/each}}
-               
-                        </div>
-                    </div>
-                
+              </div>
 
-    </section>
+              <div class="col-md-3 col-sm-6 col-12 highlights-allpadding">
+                <i class="fas fa-credit-card float-left fa-2x highlight-icon " style="color: #007bff;"></i>
+                <div class=" highlight-captions">
+                  <h6>Safe Payment</h6>
+                <pre style="font-size: 11px;">
+100% secure payment
+                </pre>
+                </div>
+              </div>
+             
+              <div class="col-md-3 col-sm-6 col-12 highlights-allpadding" >
+                <i class="fas fa-hand-holding-heart float-left fa-2x highlight-icon" style="color: #007bff;"></i>
+                <div class=" highlight-captions">
+                  <h6>Shop With Trust</h6>
+                <pre style="font-size: 11px;">
+Only assured sellers
+                </pre>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6 col-12 highlights-allpadding" >
+                <i class="fas fa-comments float-left fa-2x highlight-icon" style="color: #007bff;"></i>
+                <div class=" highlight-captions">
+                  <h6>24/7 Help Center</h6>
+                <pre style="font-size: 11px;">
+Dedicated 24/7 support
+                </pre>
+                </div>
+              </div>
+       
+            </div>
+          </div>
+          
+        </section>
 
-    
+
+
+
+
+
+
+
+<section class="">
+    <div class="container">
+        <div class="row">
+            <h3 class="font-weight-bold pt-5 pl-3">Laptops</h3>
+        </div>
+
+        <!--heading-underline-->
+
+        <div class="heading-underline mt-2"></div>
+
+    </div>
+
+        <!--heading-underline-->
+
+<!--Laptop-->
+        <div class="container">
+          <div class="row  pt-4 ">
+              {{#each lap}}
+        <div class="card col-md-3 col-sm-6"  >
+          <img  src="product-images/{{this._id}}.jpg" alt="Denim Jeans" style="width:100%" >
+          <h3 class="prod-card-text">{{this.Name}}</h3>
+          <p class="price">₹{{this.Price}}</p>
+          
+          <p><button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to cart</button></p>
+        </div>
+
+         {{/each}}
+      </div>
+      
+      
+      <div class="pt-4 " style="text-align:right;">
+        <button type="button" class="btn btn-primary">VIEW ALL</button>
+      </div>
+      
+    </div>
+      <!--Laptop-->
+      
+</section>
+
+
+<section class="">
+    <div class="container">
+        <div class="row">
+            <h3 class="font-weight-bold pt-5 pl-3">Mobile</h3>
+        </div>
+
+        <!--heading-underline-->
+
+        <div class="heading-underline mt-2"></div>
+
+    </div>
+
+        <!--heading-underline-->
+
+<!--Mobile-->
+        <div class="container">
+          <div class="row  pt-4 ">
+              {{#each phone}}
+        <div class="card col-md-3 col-sm-6"  >
+          <img  src="product-images/{{this._id}}.jpg" alt="Denim Jeans" style="width:100%" >
+          <h3 class="prod-card-text">{{this.Name}}</h3>
+          <p class="price">₹{{this.Price}}</p>
+          
+          <p><button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to cart</button></p>
+        </div>
+
+         {{/each}}
+      </div>
+      
+      
+      <div class="pt-4 " style="text-align:right;">
+        <button type="button" class="btn btn-primary">VIEW ALL</button>
+      </div>
+      
+    </div>
+      <!--Laptop-->
+      
+</section>
+
+
+
+<section class="">
+    <div class="container">
+        <div class="row">
+            <h3 class="font-weight-bold pt-5 pl-3">Accessories</h3>
+        </div>
+
+        <!--heading-underline-->
+
+        <div class="heading-underline mt-2"></div>
+
+    </div>
+
+        <!--heading-underline-->
+
+<!--Accessories-->
+        <div class="container">
+          <div class="row  pt-4 ">
+              {{#each accessories}}
+        <div class="card col-md-3 col-sm-6"  >
+          <img  src="product-images/{{this._id}}.jpg" alt="Denim Jeans" style="width:100%" >
+          <h3 class="prod-card-text">{{this.Name}}</h3>
+          <p class="price">₹{{this.Price}}</p>
+          
+          <p><button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to cart</button></p>
+        </div>
+
+         {{/each}}
+      </div>
+      
+      
+      <div class="pt-4 " style="text-align:right;">
+        <button type="button" class="btn btn-primary">VIEW ALL</button>
+      </div>
+      
+    </div>
+      <!--Accessories-->
+      
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Footer -->
+<footer class=" page-footer font-small unique-color-dark pt-5 " >
+
+  <div style="background-color: #007bff;  width: 100%;  position: sticky;  z-index: 2; top: 0;">
+    <div class="container">
+
+      <!-- Grid row-->
+      <div class="row py-4 d-flex align-items-center">
+
+        <!-- Grid column -->
+        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+          <h6 class="mb-0 socialmedia-icons">Get connected with us on social networks!</h6>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-6 col-lg-7 text-center text-md-right ">
+
+          <!-- Facebook -->
+          <a class="fb-ic ">
+            <i class="fab fa-facebook-f white-text mr-4 socialmedia-icons"> </i>
+          </a>
+          <!-- Twitter -->
+          <a class="tw-ic">
+            <i class="fab fa-twitter white-text mr-4 socialmedia-icons"> </i>
+          </a>
+          <!-- Google +-->
+          <a class="gplus-ic">
+            <i class="fab fa-google-plus-g white-text mr-4 socialmedia-icons"> </i>
+          </a>
+          <!--Linkedin -->
+          <a class="li-ic">
+            <i class="fab fa-linkedin-in white-text mr-4 socialmedia-icons"> </i>
+          </a>
+          <!--Instagram-->
+          <a class="ins-ic">
+            <i class="fab fa-instagram white-text socialmedia-icons"> </i>
+          </a>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row-->
+
+    </div>
+  </div>
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left mt-5 ">
+
+    <!-- Grid row -->
+    <div class="row mt-3 ">
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+        <!-- Content -->
+        <h6 class="text-uppercase font-weight-bold">Cake Shop</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
+          consectetur
+          adipisicing elit.</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Information</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p >
+          <a href="#!">About Us</a>
+        </p>
+        <p>
+          <a href="#!">Delivery Information</a>
+        </p>
+        <p>
+          <a href="#!">Privacy Policy</a>
+        </p>
+        <p>
+          <a href="#!">Terms & Contition</a>
+        </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">My Account</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="#!">My Account</a>
+        </p>
+        <p>
+          <a href="#!">Order History</a>
+        </p>
+        <p>
+          <a href="#!">Wishlist</a>
+        </p>
+        <p>
+          <a href="#!">Help</a>
+        </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Contact</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+        <p>
+          <i class="fas fa-envelope mr-3"></i> info@example.com</p>
+        <p>
+          <i class="fas fa-phone mr-3"></i> + 91 234 567 88</p>
+        <p>
+          <i class="fas fa-print mr-3"></i> + 91 234 567 89</p>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2021 Copyright:
+    <a href="#"> Virtualhub.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

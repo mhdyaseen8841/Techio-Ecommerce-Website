@@ -20,10 +20,16 @@ router.get('/', async function(req, res, next) {
   if(user){
     cartCount=await userHelper.getCartCount(req.session.user._id)
   }
-  
+  let lap= await productHelper.getProductLaptop()
+  let phone= await productHelper.getProductSmartphone()
+  let accessories= await productHelper.getProductAccessories()
+  console.log('oooooooooi');
+  console.log(lap)
+  console.log('hiiiiiiiiiiiiiiii');
+  console.log(phone);
   productHelper.getallproducts().then((products)=>{
     
-    res.render('user/index',{user,products,admin:false,cartCount});
+    res.render('user/index',{user,products,admin:false,cartCount,lap,phone,accessories});
   })
  
 });
@@ -50,7 +56,7 @@ router.post('/signup',(req,res)=>{
   userHelper.doSignup(req.body).then((response)=>{
     console.log(response)
     req.session.user=response.user
-    req.session.user.loggedIn=true
+    req.session.userloggedIn=true
       
     res.redirect('/')
   })
