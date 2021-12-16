@@ -29,7 +29,7 @@ router.get('/', async function(req, res, next) {
   console.log(phone);
   productHelper.getallproducts().then((products)=>{
     
-    res.render('user/index',{user,products,admin:false,cartCount,lap,phone,accessories});
+    res.render('user/index',{user,products,cartCount,lap,phone,accessories});
   })
  
 });
@@ -53,14 +53,38 @@ router.get('/login',(req,res)=>{
   }
 })
 router.post('/signup',(req,res)=>{
+  console.log("reqbody ithaanu");
+  console.log(req.body);
   userHelper.doSignup(req.body).then((response)=>{
-    console.log(response)
+     
     req.session.user=response.user
     req.session.userloggedIn=true
-      
-    res.redirect('/')
+       let user=req.session.user
+      let username=response.user.Name
+      let useremail=response.user.Email
+    res.render('user/profile-form',{username,user,useremail})
   })
 })
+
+router.post('/updateProfile',(req,res)=>{
+  console.log('update ilekk call vannnnnnnnn');
+  console.log(req.body)
+  console.log(req.query.id)
+  userHelper.profileUpdate(req.body,req.query.id).then(()=>{
+    console.log('lets ready for image')
+    let image=req.files.Image
+  image.mv('./public/user-image/'+req.query.id+'.jpg',(err,done)=>{
+    if(!err){
+      console.log('no error')
+     res.redirect('/')
+    }else{
+      console.log(err)
+    }
+  })
+  })
+})
+
+
 router.post('/login',(req,res)=>{
   userHelper.doLogin(req.body).then((response)=>{
     if(response.status){
@@ -115,10 +139,11 @@ router.post('/remove-cart-products',(req,res,next)=>{
   })
 })
 router.get('/place-order',verifyLogin,async(req,res)=>{
-  
+  let userDetails=await userHelper.getUserDetails(req.session.user._id)
   let total=await userHelper.getTotalAmount(req.session.user._id)
-  
-  res.render('user/order-page',{total,user: req.session.user})
+ console.log('user details dheee');
+  console.log(userDetails)
+  res.render('user/order-page',{total,user: req.session.user,userDetails})
 })
 
 router.post('/place-order',verifyLogin,async(req,res)=>{
@@ -151,6 +176,7 @@ router.get('/orders', async (req,res)=>{
 router.get('/view-order-products/:id',async(req,res)=>{
   let products=await userHelper.getOrderProducts(req.params.id)
   
+  
   console.log(products)
   res.render('user/view-order-products',{user:req.session.user,products})
 })
@@ -169,16 +195,18 @@ router.post('/verify-payment',(req,res)=>{
 
 router.get('/productview',async (req,res)=>{
   
-  let proId=req.query.id
-  console.log(proId);
 
-  let product=await productHelper.getProductDetails(proId)
-  console.log(product)
-  res.render('user/product',{product})
+  res.render('user/product-details')
   
 })
 
-
+router.get('/user-profile',async (req,res)=>{
+  console.log('userreeeeeee');
+ let userDetails=await userHelper.getUserDetails(req.session.user._id)
+ console.log('dheeeee user')
+console.log(userDetails)
+  res.render('user/profile',{userDetails})
+})
 
 
 module.exports = router;

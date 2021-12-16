@@ -12,12 +12,30 @@ var instance = new Razorpay({
 module.exports={
     doSignup:(userData)=>{
         return new Promise(async(resolve,reject)=>{
+            let response={}
             userData.Password=await bcrypt.hash(userData.Password,10)
-            db.get().collection(collection.USER_COLLECTION).insertOne(userData).then()
-            resolve(userData)
+            db.get().collection(collection.USER_COLLECTION).insertOne(userData).then(async (res)=>{
+              let user=await db.get().collection(collection.USER_COLLECTION).findOne({_id:res.insertedId})
+                console.log("ithaan response")
+                console.log(response);
+                response.user=user
+                response.status=true
+                resolve(response);
+            })
+            
 
         })
        
+    },
+    profileUpdate:(profileData,userId)=>{
+            return new Promise((resolve,reject)=>{
+                db.get().collection(collection.USER_COLLECTION).updateOne(
+                    {_id:objectId(userId)},
+                   { $set: {profileData}}
+                     ).then(()=>{
+                         resolve()
+                     })
+            })
     },
     doLogin:(userData)=>{
         return new Promise(async(resolve,reject)=>{
@@ -363,5 +381,24 @@ changePaymentStatus:(orderId)=>{
             resolve()
         })
     })
-}
-}
+},
+getUserDetails:(userId)=>{
+    return new Promise(async(resolve,reject)=>{
+        
+        console.log('this is user id');
+        console.log(userId);
+      let user= await  db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(userId)})
+      
+        if(user){
+            console.log('user found');
+            console.log(user)
+            resolve(user)
+         }
+          else{
+              console.log("user not found");
+          }
+        })
+    }
+    }
+    
+

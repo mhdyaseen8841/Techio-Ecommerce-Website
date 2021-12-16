@@ -6,13 +6,13 @@
                     <h2>Enter Delivery Details</h2>
                 <div>
                 <label for="">Address</label>
-                <input type="text" name="Address" class="form-control">
+                <input type="text" name="Address" value="{{userDetails.profileData.Address}}" class="form-control">
                 
                  <label for="">Pincode</label>
-                <input type="number" name="Pincode" class="form-control">
+                <input type="number" name="Pincode" value="{{userDetails.profileData.Pincode}}" class="form-control">
 
                  <label for="">Mobile</label>
-                <input type="number" name="Mobile" class="form-control">      
+                <input type="number" name="Mobile" value="{{userDetails.profileData.Mobile}}" class="form-control">      
                  <input type="text" name="userId" id="" value="{{user._id}}" hidden >
             </div>
             </div>

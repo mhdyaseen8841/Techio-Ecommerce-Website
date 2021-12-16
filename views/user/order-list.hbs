@@ -1,10 +1,16 @@
-<div class="container-fluid">
-    <div class="row mt-4">
-    <h1 class="pl-3">Your Orders</h1>
-       
+  <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Your Orders</li>
+          </ol>
+        </nav>
+      </div>
     </div>
-<table class="table mt-5">
-  <thead>
+<div class="container-fluid">
+<table class="table">
+  <thead class="table-dark">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Date</th>
@@ -13,8 +19,8 @@
       <th>Mobile</th>     
       <th>Amount</th>
       <th>Payment</th>
-<th>Details</th>
-      <th scope="col">Image</th>   
+      <th>Status</th>
+      <th scope="col">Track</th>   
     </tr>
   </thead>
   <tbody>
@@ -28,7 +34,7 @@
       <td>Rs: {{this.totalAmount}}</td>
       <td>{{this.paymentMethod}}</td>
       <td>{{this.status}}</td>
-    <td><a type="button" class="btn btn-success" href="/view-order-products/{{this._id}}">View Product</a></td>
+    <td><a type="button" class="btn btn-success" href="/view-order-products/{{this._id}}">Track Order</a></td>
       
     </tr>
     {{/each}}
