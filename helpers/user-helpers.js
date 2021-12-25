@@ -31,8 +31,7 @@ module.exports={
             return new Promise((resolve,reject)=>{
                 db.get().collection(collection.USER_COLLECTION).updateOne(
                     {_id:objectId(userId)},
-                   { $set: {profileData}}
-                     ).then(()=>{
+                    {$set: {Mobile: profileData.Mobile,Address:profileData.Address,Pincode:profileData.Pincode,Country:profileData.Country,State:profileData.State}}, {multi: true}).then(()=>{
                          resolve()
                      })
             })
@@ -398,7 +397,42 @@ getUserDetails:(userId)=>{
               console.log("user not found");
           }
         })
+    },
+    editUser:(userId,userDetails)=>{
+        return new Promise((resolve,reject)=>{
+          console.log('hloooooooooooooooooooo')
+          console.log(userDetails);
+            db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{$set:{
+                
+                Name:userDetails.Name,
+                Email:userDetails.Email,
+                Password:userDetails.Password,
+                Address:userDetails.Address,
+                Country:userDetails.Country,
+                Mobile:userDetails.Mobile,
+                Pincode:userDetails.Pincode,
+                State:userDetails.State
+            }
+        }).then((response)=>{
+           
+            resolve(response)
+        })
+        })
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
     
 

@@ -123,6 +123,62 @@ Dedicated 24/7 support
 
 
 
+<div class="container mt-100">
+    <div class="row">
+        <div class="col-md-4 col-sm-6">
+            <div class="card-cat card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
+                    <div class="inner">
+                        <div class="main-img"><img src="https://i.imgur.com/O0GMYuw.jpg" alt="Category"></div>
+                        <div class="thumblist"><img src="https://i.imgur.com/ILEU18M.jpg" alt="Category"><img src="https://i.imgur.com/2kePJmX.jpg" alt="Category"></div>
+                    </div>
+                </a>
+                <div class="card-body text-center">
+                    <h4 class="card-title">Laptops</h4>
+                    <p class="text-muted">Starting from $499</p><a class="btn btn-outline-primary btn-sm"  href="/products-list?id=lap" data-abc="true">View Products</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="card-cat card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
+                    <div class="inner">
+                        <div class="main-img"><img src="https://i.imgur.com/uRgdVY1.jpg" alt="Category"></div>
+                        <div class="thumblist"><img src="https://i.imgur.com/VwSKS7A.jpg" alt="Category"><img src="https://i.imgur.com/gTvZ2H5.jpg" alt="Category"></div>
+                    </div>
+                </a>
+                <div class="card-body  text-center">
+                    <h4 class="card-title">Mobiles</h4>
+                    <p class="text-muted">Starting from $50</p><a class="btn btn-outline-primary btn-sm"  href="/products-list?id=phone" data-abc="true">View Products</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="card-cat card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
+                    <div class="inner">
+                        <div class="main-img"><img src="https://i.imgur.com/0jO40CF.jpg" alt="Category"></div>
+                        <div class="thumblist"><img src="https://i.imgur.com/dWYAg41.jpg" alt="Category"><img src="https://i.imgur.com/5oQEZSC.jpg" alt="Category"></div>
+                    </div>
+                </a>
+                <div class="card-body text-center">
+                    <h4 class="card-title">Accessories</h4>
+                    <p class="text-muted">Starting from $9</p><a class="btn btn-outline-primary btn-sm" href="/products-list?id=accessory" data-abc="true">View Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -146,10 +202,15 @@ Dedicated 24/7 support
         <div class="container">
           <div class="row  pt-4 ">
               {{#each lap}}
+     
         <div class="card procard col-md-3 col-sm-6"  >
-      <a href="/productview/?id={{this._id}}" > <img  src="product-images/{{this._id}}.jpg" alt="Laptop" style="width:100%" > </a>
+          <a href="/productDetailsView?id={{this._id}}"> 
+       <img  src="product-images/{{this._id}}.jpg" alt="Laptop" style="width:100%" > 
+    </a>
           <h3 class="prod-card-text">{{this.Name}}</h3>
-          <p class="price">₹{{this.Price}}</p>
+         
+         <p class="price">₹{{this.Price}}</p> 
+        
           
           <p><button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to cart</button></p>
         </div>
@@ -159,7 +220,7 @@ Dedicated 24/7 support
       
       
       <div class="pt-4 " style="text-align:right;">
-        <button type="button" class="btn btn-primary">VIEW ALL</button>
+        <a type="button" href="/products-list?id=lap" class="btn btn-primary">VIEW ALL</a>
       </div>
       
     </div>
@@ -187,7 +248,7 @@ Dedicated 24/7 support
           <div class="row  pt-4 ">
               {{#each phone}}
         <div class="procard card col-md-3 col-sm-6"  >
-         <a href="/product-view/?id={{this._id}}"> <img  src="product-images/{{this._id}}.jpg" alt="Mobile" style="width:100%" > </a>
+          <a href="/productDetailsView?id={{this._id}}"> <img  src="product-images/{{this._id}}.jpg" alt="Mobile" style="width:100%" > </a>
           <h3 class="prod-card-text">{{this.Name}}</h3>
           <p class="price">₹{{this.Price}}</p>
           
@@ -199,7 +260,7 @@ Dedicated 24/7 support
       
       
       <div class="pt-4 " style="text-align:right;">
-        <button type="button" class="btn btn-primary">VIEW ALL</button>
+        <a type="button" href="/products-list?id=phone" class="btn btn-primary">VIEW ALL</a>
       </div>
       
     </div>
@@ -228,7 +289,7 @@ Dedicated 24/7 support
           <div class="row  pt-4 ">
               {{#each accessories}}
         <div class="procard card col-md-3 col-sm-6"  >
-         <a> <img  src="product-images/{{this._id}}.jpg" alt="Accessories" style="width:100%" ></a> 
+          <a href="/productDetailsView?id={{this._id}}">  <img  src="product-images/{{this._id}}.jpg" alt="Accessories" style="width:100%" ></a> 
           <h3 class="prod-card-text">{{this.Name}}</h3>
           <p class="price">₹{{this.Price}}</p>
           
@@ -240,7 +301,7 @@ Dedicated 24/7 support
       
       
       <div class="pt-4 " style="text-align:right;">
-        <button type="button" class="btn btn-primary">VIEW ALL</button>
+        <button type="button"  href="/products-list?id=accessory" class="btn btn-primary">VIEW ALL</button>
       </div>
       
     </div>

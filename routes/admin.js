@@ -32,7 +32,10 @@ router.post('/add-product',(req,res,next)=>{
   console.log("hloooooooooooooooooooooo");
 console.log(req.body)
 productHelper.addProduct(req.body,(id)=>{
-  console.log(id)
+  console.log("hlooooooooooooooooooohiiiiiiiiiiiiiiihoooooi")
+  console.log(req.files)
+  console.log('haidffffffhaso');
+  console.log(req.files.Image)
   let image=req.files.Image
   image.mv('./public/product-images/'+id+'.jpg',(err,done)=>{
     if(!err){

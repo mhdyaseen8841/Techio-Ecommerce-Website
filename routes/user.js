@@ -15,7 +15,7 @@ const verifyLogin=(req,res,next)=>{
 /* GET home page.*/
 router.get('/', async function(req, res, next) {
   let user=req.session.user
-  console.log(user)
+  
   let cartCount=null;
   if(user){
     cartCount=await userHelper.getCartCount(req.session.user._id)
@@ -23,10 +23,8 @@ router.get('/', async function(req, res, next) {
   let lap= await productHelper.getProductLaptop()
   let phone= await productHelper.getProductSmartphone()
   let accessories= await productHelper.getProductAccessories()
-  console.log('oooooooooi');
-  console.log(lap)
-  console.log('hiiiiiiiiiiiiiiii');
-  console.log(phone);
+  
+  
   productHelper.getallproducts().then((products)=>{
     
     res.render('user/index',{user,products,cartCount,lap,phone,accessories});
@@ -41,20 +39,19 @@ router.get('/signup',(req,res)=>{
   }
 })
 router.get('/login',(req,res)=>{
-  console.log('call vannu');
+  
   if(req.session.userloggedIn){
-    console.log('check chythu');
+   
     res.redirect("/")
   }else{
-    console.log('Error vannu user illa');
+    
   res.render("user/login",{"loginErr":req.session.userloginErr})
   req.session.userloginErr=false
   
   }
 })
 router.post('/signup',(req,res)=>{
-  console.log("reqbody ithaanu");
-  console.log(req.body);
+  
   userHelper.doSignup(req.body).then((response)=>{
      
     req.session.user=response.user
@@ -67,15 +64,15 @@ router.post('/signup',(req,res)=>{
 })
 
 router.post('/updateProfile',(req,res)=>{
-  console.log('update ilekk call vannnnnnnnn');
+ 
   console.log(req.body)
   console.log(req.query.id)
   userHelper.profileUpdate(req.body,req.query.id).then(()=>{
-    console.log('lets ready for image')
+    
     let image=req.files.Image
   image.mv('./public/user-image/'+req.query.id+'.jpg',(err,done)=>{
     if(!err){
-      console.log('no error')
+     
      res.redirect('/')
     }else{
       console.log(err)
@@ -111,6 +108,11 @@ router.get('/addtocart/:id',verifyLogin,(req,res)=>{
 })
 
 router.get('/cart',verifyLogin,async (req,res)=>{
+  let user=req.session.user
+  let cartCount=null;
+  if(user){
+    cartCount=await userHelper.getCartCount(req.session.user._id)
+  }
 let products=await userHelper.getCartProducts(req.session.user._id)
 let total=0
 if(products.length>0){
@@ -118,7 +120,7 @@ if(products.length>0){
 }
 
 console.log(products)
-res.render('user/cart',{products,user:req.session.user._id,total})
+res.render('user/cart',{products,user,cartCount,total})
   
 })
 
@@ -141,8 +143,6 @@ router.post('/remove-cart-products',(req,res,next)=>{
 router.get('/place-order',verifyLogin,async(req,res)=>{
   let userDetails=await userHelper.getUserDetails(req.session.user._id)
   let total=await userHelper.getTotalAmount(req.session.user._id)
- console.log('user details dheee');
-  console.log(userDetails)
   res.render('user/order-page',{total,user: req.session.user,userDetails})
 })
 
@@ -163,22 +163,35 @@ router.post('/place-order',verifyLogin,async(req,res)=>{
 
 })
 
-router.get('/ordered-response',(req,res)=>{
-  res.render('user/ordered-response',{user:req.body.userId})
+router.get('/ordered-response',async (req,res)=>{
+  let user=req.session.user
+  let cartCount=null;
+  if(user){
+    cartCount=await userHelper.getCartCount(req.session.user._id)
+  }
+  res.render('user/ordered-response',{user,cartCount})
 })
 
 router.get('/orders', async (req,res)=>{
+
+  let user=req.session.user
+  let cartCount=null;
+  if(user){
+    cartCount=await userHelper.getCartCount(req.session.user._id)
+  }
   let products=await userHelper.getOrderList(req.session.user._id)
   
-  res.render('user/order-list',{products,user:req.session.user})
+  res.render('user/order-list',{products,user,cartCount})
 })
 
-router.get('/view-order-products/:id',async(req,res)=>{
-  let products=await userHelper.getOrderProducts(req.params.id)
-  
-  
-  console.log(products)
-  res.render('user/view-order-products',{user:req.session.user,products})
+router.get('/view-order-products',async(req,res)=>{
+  let user=req.session.user
+  let cartCount=null;
+  if(user){
+    cartCount=await userHelper.getCartCount(req.session.user._id)
+  }
+  let products=await userHelper.getOrderProducts(req.query.id)
+  res.render('user/view-order-products',{user,products,cartCount})
 })
 
 router.post('/verify-payment',(req,res)=>{
@@ -193,20 +206,77 @@ router.post('/verify-payment',(req,res)=>{
 })
 
 
-router.get('/productview',async (req,res)=>{
-  
-
-  res.render('user/product-details')
-  
-})
-
 router.get('/user-profile',async (req,res)=>{
-  console.log('userreeeeeee');
+ 
+  let user=req.session.user
+  let cartCount=null;
+  if(user){
+    cartCount=await userHelper.getCartCount(req.session.user._id)
+  }
  let userDetails=await userHelper.getUserDetails(req.session.user._id)
- console.log('dheeeee user')
-console.log(userDetails)
-  res.render('user/profile',{userDetails})
+
+
+  res.render('user/profile',{userDetails,cartCount,user})
 })
+
+router.get('/productDetailsView',async (req,res)=>{
+  let user=req.session.user
+  let cartCount=null;
+  if(user){
+    cartCount=await userHelper.getCartCount(req.session.user._id)
+  }
+console.log(req.query.id);
+  
+ let product= await productHelper.getProductDetails(req.query.id)
+ 
+  res.render('user/product-detail-page',{product,user,cartCount})
+})
+
+
+router.get('/edit-profile',async (req,res)=>{
+  let user=req.session.user
+  let userDetails=await userHelper.getUserDetails(req.session.user._id)
+  let cartCount=null;
+  if(user){
+    cartCount=await userHelper.getCartCount(req.session.user._id)
+  }
+ 
+  res.render('user/edit-profile',{user,userDetails,cartCount})
+})
+router.post('/edit-profile',(req,res)=>{
+  let user=req.session.user
+  userHelper.editUser(user._id,req.body).then((re)=>{
+  req.session.user=req.body
+  res.redirect('/')
+  
+})
+})
+
+
+
+router.get('/products-list',async (req,res)=>{
+  let user=req.session.user
+  let cartCount=null;
+  if(user){
+    cartCount=await userHelper.getCartCount(req.session.user._id)
+  }
+  let pro=req.query.id
+  console.log(req.query.id);
+  let products;
+  if(pro==='lap'){
+    console.log('hloooooohiiiii');
+    products= await productHelper.getProductLaptop()
+  }
+  else if(pro==='phone'){
+     products= await productHelper.getProductSmartphone()
+  }
+ else{
+   products= await productHelper.getProductAccessories()
+ }
+  console.log(products);
+  res.render('user/product-list',{user,products,cartCount})
+})
+
 
 
 module.exports = router;
