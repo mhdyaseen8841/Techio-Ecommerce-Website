@@ -381,7 +381,7 @@ pre {
 
 
 .procard {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
     max-width: 200px;
     margin: auto;
     text-align: center;
@@ -397,7 +397,7 @@ pre {
     font-size: 20px;
   }
   
-  .card button {
+  .card- button {
     border: none;
     outline: 0;
     padding: 8px;
@@ -1056,3 +1056,337 @@ a {
     width:40px;
     height:40px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*cart page*/
+
+
+
+
+
+.title-cart {
+    margin-bottom: 5vh
+}
+
+.card-cart {
+    margin: auto;
+    max-width: 950px;
+    width: 90%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent
+}
+
+@media(max-width:767px) {
+    .card-cart {
+        margin: 3vh auto
+    }
+}
+
+.cart {
+    background-color: #fff;
+    padding: 4vh 5vh;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem
+}
+
+@media(max-width:767px) {
+    .cart {
+        padding: 4vh;
+        border-bottom-left-radius: unset;
+        border-top-right-radius: 1rem
+    }
+}
+
+.summary {
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh;
+    color: rgb(65, 65, 65)
+}
+
+@media(max-width:767px) {
+    .summary {
+        border-top-right-radius: unset;
+        border-bottom-left-radius: 1rem
+    }
+}
+
+.summary .col-2 {
+    padding: 0
+}
+
+.summary .col-10 {
+    padding: 0
+}
+
+/*.row {
+    margin: 0
+}*/
+
+.title-cart bt {
+    font-size: 1.5rem
+}
+
+.main {
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%
+}
+
+.col-2,
+.col {
+    padding: 0 1vh
+}
+
+
+
+.close {
+    margin-left: auto;
+    font-size: 0.7rem
+}
+
+.img-cart {
+    width: 3.5rem
+}
+
+.back-to-shop {
+    margin-top: 4.5rem
+}
+
+.h5-cart {
+    margin-top: 4vh
+}
+
+.hr-cart {
+    margin-top: 1.25rem
+}
+
+.form-cart {
+    padding: 2vh 0
+}
+
+.select-cart {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1.5vh 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247)
+}
+
+.input-cart {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247)
+}
+
+.input-cart:focus::-webkit-input-placeholder {
+    color: transparent
+}
+
+.btn-cart {
+    background-color: #000;
+    border-color: #000;
+    color: white;
+    width: 100%;
+    font-size: 0.7rem;
+    margin-top: 4vh;
+    padding: 1vh;
+    border-radius: 0
+}
+
+.btn-cart:focus {
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+    -webkit-user-select: none;
+    transition: none
+}
+
+.btn-cart:hover {
+    color: white
+}
+
+.a-cart {
+    color: black
+}
+
+.a-cart:hover {
+    color: black;
+    text-decoration: none
+}
+
+#code {
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center
+}
+
+
+
+
+
+
+
+/*Forgot Password*/
+
+
+
+
+.forgot {
+    background-color: #fff;
+    padding: 12px;
+    border: 1px solid #dfdfdf
+}
+
+
+
+.card-footer {
+    background-color: #fff
+}
+
+
+   
+
+.form-controlling:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #76b7e9;
+    outline: 0;
+    box-shadow: 0 0 0 0px #28a745
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

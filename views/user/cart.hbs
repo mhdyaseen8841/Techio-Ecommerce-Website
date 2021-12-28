@@ -1,46 +1,64 @@
-<div class="container">
-<table class="table mt-5">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Item</th>
-      <th scope="col">Title</th>
-      <th scope="col">Price</th>
-      <th scope="col">Quantity</th>
-      <th>Delete</th>     
-    </tr>
-  </thead>
-  <tbody>
-      {{#each products}}
-    <tr>
-      
-      <th scope="row">{{@key}}</th>
-      <td><img class="card-img-top" style="width: 100px; height:80px" src="/product-images/{{this.product._id}}.jpg" alt="Card image cap"></td>
-      <td>{{this.product.Name}}</td>
-     <td>Rs.{{this.product.Price}}</td>
-      
-      <td>
-          <button class="cart-item-count mr-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)" >-</button>
-         <span id="{{this.product._id}}">{{this.quantity}}</span> 
-          <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button>
-      </td>
-     
-      <td>
-        <button class="btn btn-primary" onclick="removeCartItem('{{this._id}}','{{this.product._id}}')">Remove</button>
-      </td>
-     
-      
-    </tr>
-    {{/each}}
+<div class="container pt-5">
+<div class=" card card-cart">
+    <div class="row">
+        <div class="col-md-8 cart">
+            <div class="title-cart">
+                <div class="row">
+                    <div class="col">
+                        <h4><b class="bt">Shopping Cart</b></h4>
+                    </div>
+                    <div class="col align-self-center text-right text-muted">3 items</div>
+                </div>
+            </div>
+
+ {{#each products}}
+            <div class="row border-top border-bottom">
+                <div class="row main align-items-center">
+                    <div class="col-2"><img class="img-cart img-fluid"  src="/product-images/{{this.product._id}}1.jpg"></div>
+                    <div class="col">
+                        <div class="row text-muted">{{this.product.Name}}</div>
+                        <div class="row">{{this.product.Category}}</div>
+                    </div>
+                     
+                    <div class="col"> <button class=" cart-item-count mr-3 border"  onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}',-1)" >-</button>
+         <span style="width: 100px;" id="{{this.product._id}}">{{this.quantity}}</span> 
+          <button class=" cart-item-count ml-3 border" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}',1)">+</button></div>
+                    <div class="col">₹{{this.product.Price}}<a class="close" onclick="removeCartItem('{{this._id}}','{{this.product._id}}')">&#10005;</a></div>
+                </div>
+            </div>
+
+
+  {{/each}}
    
-  </t/tbody>
-</table>
-<hr>
-<div class="float-right pr-5">
-<h3 class="float-left mr-5">Total Rs: <span id="total">{{total}}</span></h3>
-<a href="/place-order" class=" btn btn-success mt-3" style="width: 100%;">place order</a>
+
+            <div class="back-to-shop"><a href="/">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+        </div>
+        <div class="col-md-4 summary">
+            <div>
+                <h5 class="h5-cart"><b class="bt">Summary</b></h5>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col" style="padding-left:0;">ITEMS 3</div>
+                
+                <div class="col text-right">₹<span id="total">{{total}}.00</span></div>
+            </div>
+            <form class="form-cart">
+                <p>SHIPPING</p> <select class="select-cart">
+                    <option class="text-muted">Standard-Delivery- ₹40.00</option>
+                </select>
+                <p>GIVE CODE</p> <input class="input-cart" id="code" placeholder="Enter your code">
+            </form>
+            <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                <div class="col">TOTAL PRICE</div>
+                <div class="col text-right" >₹<span id="alltotal">{{allTotal}}.00</span></div>
+            </div> <a class="btn btn-cart" href="/place-order">CHECKOUT</a>
+        </div>
+    </div>
 </div>
+
 </div>
+
 
 
 <script>
@@ -66,6 +84,7 @@
         else{
           document.getElementById(proId).innerHTML=quantity+count
           document.getElementById('total').innerHTML=response.total
+          document.getElementById('alltotal').innerHTML=response.allTotal
         }
       }    
     })

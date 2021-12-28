@@ -2,9 +2,13 @@
 const { response } = require('express');
 var express = require('express');
 const session = require('express-session');
+const jwt= require('jsonwebtoken')
 var router = express.Router();
 var productHelper=require('../helpers/product-helpers')
 var userHelper=require('../helpers/user-helpers')
+const API_KEY='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'
+const sgMail = require('@sendgrid/mail')
+const JWT_SECRET = 'some super secret ....'
 const verifyLogin=(req,res,next)=>{
   if(req.session.userloggedIn){
     next()
@@ -27,7 +31,7 @@ router.get('/', async function(req, res, next) {
   
   productHelper.getallproducts().then((products)=>{
     
-    res.render('user/index',{user,products,cartCount,lap,phone,accessories});
+    res.render('user/index',{user,products,cartCount,index:true,lap,phone,accessories});
   })
  
 });
@@ -62,13 +66,82 @@ router.post('/signup',(req,res)=>{
     res.render('user/profile-form',{username,user,useremail})
   })
 })
+router.get('/forgotPassword',(req,res)=>{
+  res.render('user/forgot-password')
+})
+router.post('/forgotPassword',(req,res)=>{
+  
+  userHelper.getUserWithEmail(req.body).then((response)=>{
+    console.log(response);
+    res.render('user/confirm-user',{response})
+  })
+})
+
+router.get('/confirm-user',async (req,res)=>{
+  console.log(req.query.id)
+  let user= await userHelper.getUserDetails(req.query.id)
+  console.log(user)
+  const secret =JWT_SECRET + user.Password
+  const payload={
+    email: user.Email,
+    id:user._id
+  }
+  const token = jwt.sign(payload, secret, {expiresIn:'15m'})
+  const link=`http://localhost:3001/reset-password/${user._id}/${token}`
+  sgMail.setApiKey(API_KEY)
+const message={
+  to: user.Email,
+  from: {
+    name:'Mohammed Yaseen',
+    email:'yyaseen080@gmail.com'
+  },
+  subject: 'hello from yaseen',
+  text:'hello from yasi',
+  html:link
+}
+sgMail.send(message).then((response)=>console.log('email send'))
+.catch((error)=>console.log(error.message))
+  console.log(link)
+  res.send('Password reset link sent to your gmail')
+})
+
+
+router.get('/reset-password/:id/:token',async(req,res)=>{
+const {id, token}=req.params
+let user= await userHelper.getUserDetails(id)
+if(user){
+ const secret= JWT_SECRET+user.Password
+ try{
+   const payload=jwt.verify(token, secret)
+   console.log('ithaan tta id')
+   console.log(id)
+   res.render('user/reset-password',{email:user.Email,id:id})
+ }
+ catch(error){
+   console.log(error.message)
+ }
+}
+else{
+  res.send('Invalid Id')
+}
+})
+
+
+router.post('/reset-password',(req,res)=>{
+console.log(req.body)
+console.log(req.query)
+userHelper.changePassword(req.query.id,req.body.Password1).then(()=>{
+  res.redirect('/login')
+})
+})
+
+
 
 router.post('/updateProfile',(req,res)=>{
  
   console.log(req.body)
   console.log(req.query.id)
   userHelper.profileUpdate(req.body,req.query.id).then(()=>{
-    
     let image=req.files.Image
   image.mv('./public/user-image/'+req.query.id+'.jpg',(err,done)=>{
     if(!err){
@@ -115,23 +188,29 @@ router.get('/cart',verifyLogin,async (req,res)=>{
   }
 let products=await userHelper.getCartProducts(req.session.user._id)
 let total=0
+let allTotal=0
 if(products.length>0){
    total=await userHelper.getTotalAmount(req.session.user._id)
+   allTotal=total+40;
 }
-
 console.log(products)
-res.render('user/cart',{products,user,cartCount,total})
+res.render('user/cart',{products,user,'userId':req.session.user._id,allTotal,cartCount,total})
   
 })
 
 router.post('/change-product-quantity',(req,res,next)=>{
   
   userHelper.changeProductQuantity(req.body).then(async(response)=>{
+    console.log(response)
     
     response.total=await userHelper.getTotalAmount(req.body.user)
+    response.allTotal=response.total+40;
+    console.log(response.allTotal)
     res.json(response)
   })
 })
+
+
 
 router.post('/remove-cart-products',(req,res,next)=>{
   
@@ -212,6 +291,7 @@ router.get('/user-profile',async (req,res)=>{
   let cartCount=null;
   if(user){
     cartCount=await userHelper.getCartCount(req.session.user._id)
+    console.log(cartCount)
   }
  let userDetails=await userHelper.getUserDetails(req.session.user._id)
 
@@ -245,8 +325,9 @@ router.get('/edit-profile',async (req,res)=>{
 })
 router.post('/edit-profile',(req,res)=>{
   let user=req.session.user
-  userHelper.editUser(user._id,req.body).then((re)=>{
-  req.session.user=req.body
+  userHelper.editUser(user._id,req.body).then(()=>{
+  req.session.user.Name=req.body.Name
+  console.log(req.body)
   res.redirect('/')
   
 })
@@ -270,7 +351,7 @@ router.get('/products-list',async (req,res)=>{
   else if(pro==='phone'){
      products= await productHelper.getProductSmartphone()
   }
- else{
+ else {
    products= await productHelper.getProductAccessories()
  }
   console.log(products);

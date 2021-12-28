@@ -1,3 +1,21 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   <div class="row">
       <div class="col">
         <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
@@ -19,6 +37,7 @@
       <ul class="list-group shadow">
 {{#each products}}
         <!-- list group item-->
+        <a  href="/productDetailsView?id={{this._id}}">
         <li class="list-group-item">
           <!-- Custom content-->
           <div class="media align-items-lg-center flex-column flex-lg-row p-3">
@@ -35,10 +54,11 @@
                   <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
                 </ul>
               </div>
-            </div><img src="product-images/{{this._id}}.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+            </div><img src="product-images/{{this._id}}1.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
           </div>
           <!-- End -->
         </li>
+        </a>
         <!-- End -->
 {{/each}}
       </ul>

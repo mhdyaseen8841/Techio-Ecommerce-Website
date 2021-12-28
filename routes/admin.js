@@ -32,17 +32,31 @@ router.post('/add-product',(req,res,next)=>{
   console.log("hloooooooooooooooooooooo");
 console.log(req.body)
 productHelper.addProduct(req.body,(id)=>{
-  console.log("hlooooooooooooooooooohiiiiiiiiiiiiiiihoooooi")
-  console.log(req.files)
-  console.log('haidffffffhaso');
-  console.log(req.files.Image)
-  let image=req.files.Image
-  image.mv('./public/product-images/'+id+'.jpg',(err,done)=>{
+  let image=req.files.Image[0]
+  image.mv('./public/product-images/'+id+'1'+'.jpg',(err,done)=>{
+    if(err){
+      console.log(err)
+    }
+    
+  })
+
+  image=req.files.Image[1]
+  image.mv('./public/product-images/'+id+'2'+'.jpg',(err,done)=>{
+    if(err){
+     
+      console.log(err)
+    }
+    
+  })
+
+  image=req.files.Image[2]
+  image.mv('./public/product-images/'+id+'3'+'.jpg',(err,done)=>{
     if(!err){
       res.render('admin/add-product')
     }else{
       console.log(err)
     }
+    
   })
 
 })
@@ -92,10 +106,11 @@ router.get('/edit-product',async(req,res)=>{
   let user=req.session.user
   let proId=req.query.id
   let product=await productHelper.getProductDetails(proId)
-  console.log(product)
+  
   res.render("admin/edit-product",{user,admin:true,product})
   
 })
+
 
 router.post('/edit-product',(req,res)=>{
   let proId=req.query.id
@@ -104,8 +119,33 @@ router.post('/edit-product',(req,res)=>{
   productHelper.updateProduct(req.body,proId).then(()=>{
     res.redirect('/admin')
     if(req.files.Image){
-      let image=req.files.Image
-      image.mv('./public/product-images/'+proId+'.jpg')
+      let image=req.files.Image[0]
+      image.mv('./public/product-images/'+proId+'1'+'.jpg',(err,done)=>{
+        if(err){
+          console.log('11111111111111111111111111111111111111111');
+          console.log(err)
+        }
+        
+      })
+    
+      image=req.files.Image[1]
+      image.mv('./public/product-images/'+proId+'2'+'.jpg',(err,done)=>{
+        if(err){
+         console.log('22222222222222222222222222222222222222222222');
+          console.log(err)
+        }
+        
+      })
+    
+      image=req.files.Image[2]
+      image.mv('./public/product-images/'+proId+'3'+'.jpg',(err,done)=>{
+        if(!err){
+          res.render('admin/add-product')
+        }else{
+          console.log(err)
+        }
+        
+      })
     }
   })
 })

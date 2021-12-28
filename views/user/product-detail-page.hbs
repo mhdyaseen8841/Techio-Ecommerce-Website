@@ -12,25 +12,25 @@
 
 <div id='slideshow-items-container'>
 
-  <img class='slideshow-items active' src="product-images/{{product._id}}.jpg">
-  <img class='slideshow-items' src="product-images/{{product._id}}.jpg">
-  <img class='slideshow-items' src='https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80'>
+  <img class='slideshow-items active' src="product-images/{{product._id}}1.jpg">
+  <img class='slideshow-items' src="product-images/{{product._id}}2.jpg">
+  <img class='slideshow-items' src="product-images/{{product._id}}3.jpg">
 
 </div>
 
 <div id='result'></div>
 
 <div class='row'>
-  <img class='slideshow-thumbnails active' src="product-images/{{product._id}}.jpg">
-  <img class='slideshow-thumbnails' src="product-images/{{product._id}}.jpg">
-  <img class='slideshow-thumbnails' src='https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=100&q=80'>
+  <img class='slideshow-thumbnails active' src="product-images/{{product._id}}1.jpg">
+  <img class='slideshow-thumbnails' src="product-images/{{product._id}}2.jpg">
+  <img class='slideshow-thumbnails' src="product-images/{{product._id}}3.jpg">
 </div>
   </div>
 
             <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12">
                 <h2 class="name">
                     {{product.Name}}
-                    <small>Product by <a href="javascript:void(0);">Adeline</a></small>
+                    <small>Product by <a href="javascript:void(0);">{{product.Seller}}</a></small>
                     <i class="fa fa-star fa-2x text-primary"></i>
                     <i class="fa fa-star fa-2x text-primary"></i>
                     <i class="fa fa-star fa-2x text-primary"></i>
@@ -47,7 +47,7 @@
                 <div class="certified">
                     <ul>
                         <li>
-                            <a href="javascript:void(0);">Delivery time<span>7 Working Days</span></a>
+                            <a href="javascript:void(0);">Delivery time<span>{{product.Delivery}} Working Days</span></a>
                         </li>
                         <li>
                             <a href="javascript:void(0);">Certified<span>Quality Assured</span></a>
@@ -66,8 +66,7 @@
                             <br />
                             <strong>{{product.Category}}</strong>
                             <p>
-                                Integer egestas, orci id condimentum eleifend, nibh nisi pulvinar eros, vitae ornare massa neque ut orci. Nam aliquet lectus sed odio eleifend, at iaculis dolor egestas. Nunc elementum pellentesque augue
-                                sodales porta. Etiam aliquet rutrum turpis, feugiat sodales ipsum consectetur nec.
+                               {{product.Description}}
                             </p>
                         </div>
                         <div class="tab-pane fade" id="specifications">

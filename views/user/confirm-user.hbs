@@ -1,0 +1,21 @@
+<div class="row">
+           <div class="col-sm-4 pt-5" style="margin: auto; width: 60%; padding: 10px" >
+              <div class="card mb-4">
+                <div class="card-body text-center">
+                    {{#if response.status}}
+                  <img src="user-image/{{response.Id}}.jpg" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                  <h5 class="my-3">{{response.Name}} </h5> 
+                  <p class="text-muted mb-1">Full Stack Developer</p>
+                  <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                  <div class=" justify-content-center   mb-2">
+                      <a class="btn btn-primary " href="/confirm-user?id={{response.Id}}">Is This You?</a>
+                    <a class="btn btn-danger " href="/forgotPassword">Not You</a>
+                  </div>
+                  {{else}}
+                  <h1>User Not Found</h1>
+                  <a class="btn btn-danger" href="/forgotPassword">Go Back</a>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+        </div>

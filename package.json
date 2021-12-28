@@ -7,8 +7,10 @@
     "dev": "nodemon script"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.6.0",
     "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
+    "cropperjs": "^1.5.12",
     "debug": "~2.6.9",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
@@ -17,6 +19,7 @@
     "fileupload": "^1.0.0",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.3",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.15",

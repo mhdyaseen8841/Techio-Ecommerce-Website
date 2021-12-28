@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 var hbs=require('express-handlebars')
@@ -26,6 +27,7 @@ db.connect((err)=>{
   console.log("connection error"+err)
   else console.log("Database connected")
 })
+
 app.use(session({secret:"key",cookie:{maxAge:600000}}))
 app.use(fileUpload())
 app.use('/', userRouter);

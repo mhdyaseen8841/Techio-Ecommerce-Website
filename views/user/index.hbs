@@ -1,8 +1,8 @@
 <!--Section: Block Content-->
-<section>
+<section >
 
   <!--Carousel Wrapper-->
-  <div id="carousel-example-2" class="carousel slide carousel-fade"  data-ride="carousel">
+  <div id="carousel-example-2" class="carousel slide"  data-ride="carousel">
     <!--Indicators-->
     <ol class="carousel-indicators">
       <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
@@ -22,7 +22,7 @@
         </div>
         <div class="carousel-caption">
          <!-- <h3 class="h3-responsive">First shop item</h3> -->
-          <p>First text</p>
+          
         </div>
       </div>
       <div class="carousel-item">
@@ -36,7 +36,7 @@
         </div>
         <div class="carousel-caption">
          <!-- <h3 class="h3-responsive">First shop item</h3> -->
-          <p>Secondary text</p>
+        
         </div>
       </div>
       <div class="carousel-item">
@@ -49,8 +49,8 @@
           </a>
         </div>
         <div class="carousel-caption">
-         <!-- <h3 class="h3-responsive">First shop item</h3> -->
-          <p>Third text</p>
+         <!-- <h3 class="h3-responsive">First shop item</h3> 
+          <p>Third text</p>-->
         </div>
       </div>
     </div>
@@ -123,10 +123,46 @@ Dedicated 24/7 support
 
 
 
-<div class="container mt-100">
+       <section class=" pb-4">
+  <div class="container">
+
+    
+    <div class="row pt-4" >
+    
+        <div class="rounded   col-md-3 col-sm-3 col-12 pt-2 " style="display: flex; justify-content: center; align-items: center;"   >
+
+          <img class=" ad-image" src="ad/green.PNG"  >
+      </div>
+      
+      <div class="rounded   col-md-6 col-sm-6 col-12 pt-2" style="display: flex; justify-content: center; align-items: center;"  >
+
+        <img class=" ad-image-morewidth" src="ad/yellow.PNG"  >
+        </div>
+
+
+        <div class="rounded   col-md-3 col-sm-3 col-12 pt-2 " style="display: flex; justify-content: center; align-items: center;" >
+
+          <img class="ad-image" src="ad/violet.PNG"  >
+        </div>
+
+
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<div class="container mt-100 pt-4">
     <div class="row">
         <div class="col-md-4 col-sm-6">
-            <div class="card-cat card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
+            <div class="card-cat card mb-30"><a class="card-img-tiles" 
+            href="/products-list?id=lap" data-abc="true">
                     <div class="inner">
                         <div class="main-img"><img src="https://i.imgur.com/O0GMYuw.jpg" alt="Category"></div>
                         <div class="thumblist"><img src="https://i.imgur.com/ILEU18M.jpg" alt="Category"><img src="https://i.imgur.com/2kePJmX.jpg" alt="Category"></div>
@@ -134,12 +170,12 @@ Dedicated 24/7 support
                 </a>
                 <div class="card-body text-center">
                     <h4 class="card-title">Laptops</h4>
-                    <p class="text-muted">Starting from $499</p><a class="btn btn-outline-primary btn-sm"  href="/products-list?id=lap" data-abc="true">View Products</a>
+                    <p class="text-muted">Starting from ₹20000 </p><a class="btn btn-outline-primary btn-sm"  href="/products-list?id=lap" data-abc="true">View Products</a>
                 </div>
             </div>
         </div>
         <div class="col-md-4 col-sm-6">
-            <div class="card-cat card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
+            <div class="card-cat card mb-30 "><a class="card-img-tiles" href="/products-list?id=phone" data-abc="true">
                     <div class="inner">
                         <div class="main-img"><img src="https://i.imgur.com/uRgdVY1.jpg" alt="Category"></div>
                         <div class="thumblist"><img src="https://i.imgur.com/VwSKS7A.jpg" alt="Category"><img src="https://i.imgur.com/gTvZ2H5.jpg" alt="Category"></div>
@@ -147,12 +183,12 @@ Dedicated 24/7 support
                 </a>
                 <div class="card-body  text-center">
                     <h4 class="card-title">Mobiles</h4>
-                    <p class="text-muted">Starting from $50</p><a class="btn btn-outline-primary btn-sm"  href="/products-list?id=phone" data-abc="true">View Products</a>
+                    <p class="text-muted">Starting from ₹4000 </p><a class="btn btn-outline-primary btn-sm"  href="/products-list?id=phone" data-abc="true">View Products</a>
                 </div>
             </div>
         </div>
         <div class="col-md-4 col-sm-6">
-            <div class="card-cat card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
+            <div class="card-cat card mb-30"><a class="card-img-tiles"  href="/products-list?id=accessory" data-abc="true">
                     <div class="inner">
                         <div class="main-img"><img src="https://i.imgur.com/0jO40CF.jpg" alt="Category"></div>
                         <div class="thumblist"><img src="https://i.imgur.com/dWYAg41.jpg" alt="Category"><img src="https://i.imgur.com/5oQEZSC.jpg" alt="Category"></div>
@@ -160,7 +196,7 @@ Dedicated 24/7 support
                 </a>
                 <div class="card-body text-center">
                     <h4 class="card-title">Accessories</h4>
-                    <p class="text-muted">Starting from $9</p><a class="btn btn-outline-primary btn-sm" href="/products-list?id=accessory" data-abc="true">View Products</a>
+                    <p class="text-muted">Starting from ₹250</p><a class="btn btn-outline-primary btn-sm" href="/products-list?id=accessory" data-abc="true">View Products</a>
                 </div>
             </div>
         </div>
@@ -203,11 +239,11 @@ Dedicated 24/7 support
           <div class="row  pt-4 ">
               {{#each lap}}
      
-        <div class="card procard col-md-3 col-sm-6"  >
+        <div class="card card- button  procard col-md-3 col-sm-6"  >
           <a href="/productDetailsView?id={{this._id}}"> 
-       <img  src="product-images/{{this._id}}.jpg" alt="Laptop" style="width:100%" > 
+       <img  src="product-images/{{this._id}}1.jpg" alt="Laptop" style="width:100%" > 
     </a>
-          <h3 class="prod-card-text">{{this.Name}}</h3>
+          <h4 class="prod-card-text">{{this.Name}}</h4>
          
          <p class="price">₹{{this.Price}}</p> 
         
@@ -220,13 +256,51 @@ Dedicated 24/7 support
       
       
       <div class="pt-4 " style="text-align:right;">
-        <a type="button" href="/products-list?id=lap" class="btn btn-primary">VIEW ALL</a>
+        <a type="button" href="/products-list?id=lap" class="btn btn-primary">VIEW ALL <i class="fas fa-angle-double-right"></i></a>
       </div>
       
     </div>
       <!--Laptop-->
       
 </section>
+
+
+
+
+
+
+<section class="pt-4">
+  <div class="container">
+
+    
+
+    <div class="row pt-4" >
+    
+        <div class="rounded   col-md-6 col-sm-6 col-12 pt-2 " style="display: flex; justify-content: center; align-items: center;"   >
+
+          <img class="w-100 " src="ad/banner.PNG"  >
+      </div>
+      <div class="rounded   col-md-6 col-sm-6 col-12 pt-2 " style="display: flex; justify-content: center; align-items: center;"   >
+
+        <img class="w-100 " src="ad/baner2.PNG"  >
+    </div>  
+    
+  </div>
+
+
+</div>
+</div>
+</section>
+
+
+
+
+
+
+
+
+
+
 
 
 <section class="">
@@ -247,9 +321,9 @@ Dedicated 24/7 support
         <div class="container">
           <div class="row  pt-4 ">
               {{#each phone}}
-        <div class="procard card col-md-3 col-sm-6"  >
-          <a href="/productDetailsView?id={{this._id}}"> <img  src="product-images/{{this._id}}.jpg" alt="Mobile" style="width:100%" > </a>
-          <h3 class="prod-card-text">{{this.Name}}</h3>
+        <div class="procard card- button card col-md-3 col-sm-6"  >
+          <a href="/productDetailsView?id={{this._id}}"> <img  src="product-images/{{this._id}}1.jpg" alt="Mobile" style="width:100%" > </a>
+          <h4 class="prod-card-text">{{this.Name}}</h4>
           <p class="price">₹{{this.Price}}</p>
           
           <p><button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to cart</button></p>
@@ -260,11 +334,11 @@ Dedicated 24/7 support
       
       
       <div class="pt-4 " style="text-align:right;">
-        <a type="button" href="/products-list?id=phone" class="btn btn-primary">VIEW ALL</a>
+        <a type="button" href="/products-list?id=phone" class="btn btn-primary">VIEW ALL <i class="fas fa-angle-double-right"></i></a>
       </div>
       
     </div>
-      <!--Laptop-->
+      <!--mobile-->
       
 </section>
 
@@ -288,9 +362,9 @@ Dedicated 24/7 support
         <div class="container">
           <div class="row  pt-4 ">
               {{#each accessories}}
-        <div class="procard card col-md-3 col-sm-6"  >
-          <a href="/productDetailsView?id={{this._id}}">  <img  src="product-images/{{this._id}}.jpg" alt="Accessories" style="width:100%" ></a> 
-          <h3 class="prod-card-text">{{this.Name}}</h3>
+        <div class="procard card card- button col-md-3 col-sm-6"  >
+          <a href="/productDetailsView?id={{this._id}}">  <img  src="product-images/{{this._id}}1.jpg" alt="Accessories" style="width:100%" ></a> 
+          <h4 class="prod-card-text">{{this.Name}}</h4>
           <p class="price">₹{{this.Price}}</p>
           
           <p><button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to cart</button></p>
@@ -301,9 +375,10 @@ Dedicated 24/7 support
       
       
       <div class="pt-4 " style="text-align:right;">
-        <button type="button"  href="/products-list?id=accessory" class="btn btn-primary">VIEW ALL</button>
+        
+        <a type="button"  href="/products-list?id=accessory" class="btn btn-primary">VIEW ALL <i class="fas fa-angle-double-right"></i></a>
       </div>
-      
+     
     </div>
       <!--Accessories-->
       

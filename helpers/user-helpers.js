@@ -250,9 +250,9 @@ module.exports={
                 }
 
             ]).toArray()
-           
+          
             resolve(total[0].total)
-            
+           
         })
     },
     PlaceOrder:(order,product,total)=>{
@@ -418,9 +418,42 @@ getUserDetails:(userId)=>{
             resolve(response)
         })
         })
+    },
+    getUserWithEmail:(userDetails)=>{
+        return new Promise(async(resolve,reject)=>{
+            let response={}
+            let user=await db.get().collection(collection.USER_COLLECTION).findOne({Email:userDetails.EmailConfirm})
+        
+            if(user){
+                console.log('user indttaa')
+                response.Name=user.Name
+                response.Id=user._id
+                response.Email=user.Email
+                response.status=true
+                        resolve(response)
+            }else{
+                console.log("login failed")
+                response.status=false
+                resolve(response)
+            }
+        
+        }
+        ) },
+        changePassword:(userId,NwPassword)=>{
+            return new Promise(async(resolve,reject)=>{
+                NwPassword=await bcrypt.hash(NwPassword,10)
+                console.log('new password')
+                console.log(NwPassword);
+               db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{$set:{
+                Password:NwPassword
+            }
+        }).then((response)=>{
+            console.log(response)
+            resolve()
+        })
+        })
+    
     }
-
-
 
 
 

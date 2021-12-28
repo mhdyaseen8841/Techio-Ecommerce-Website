@@ -14,7 +14,7 @@ module.exports={
             
             let product= await db.get().collection(collection.PRODUCT_COLLECTION).find().toArray()
             
-            console.log(product);
+           
             resolve(product)
         })
     },
@@ -61,7 +61,8 @@ module.exports={
     getProductDetails:(proId)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:objectId(proId)}).then((product)=>{
-                
+              console.log('hloooooooooooooo');
+                console.log(product);
                 resolve(product)
             })
         })
@@ -71,7 +72,10 @@ module.exports={
             db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:objectId(proId)},{$set:{
                 Name:proDetails.Name,
                 Category:proDetails.Category,
-                Price:proDetails.Price
+                Price:proDetails.Price,
+                Seller:proDetails.Seller,
+                Description:proDetails.Description,
+                Delivery:proDetails.Delivery
             }
         }).then((response)=>{
             resolve()

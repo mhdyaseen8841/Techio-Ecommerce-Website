@@ -6,10 +6,17 @@
                 <hr>
 
 
-                <form action="/admin/add-product" enctype="multipart/form-data" method="POST" >
-                <label for="">Name</label>
-                <input type="text" name="Name" class="form-control">
                 
+                <form action="/admin/add-product" enctype="multipart/form-data" method="POST" >
+                <label for="">Product Name</label>
+                <input type="text" name="Name" class="form-control">
+                <label for="">Product Description</label>
+                <input type="text" name="Description" class="form-control">
+                
+                 <label for="">Seller Name</label>
+                <input type="text" name="Seller" class="form-control">
+                <label for="">Delivery Days</label>
+                <input type="text" name="Delivery" class="form-control">
                  
 <label for="Category">Choose a category:</label>
 <select id="category" name="Category">
@@ -21,7 +28,11 @@
 
                  <label for="">Price</label>
                 <input type="number" name="Price" class="form-control">
-                 <label for="">Image</label>
+                 <label for="">First Image</label>
+                <input type="file" name="Image" class="form-control ">
+               <label for="">Second Image</label>
+                <input type="file" name="Image" class="form-control ">
+                <label for="">Third Image</label>
                 <input type="file" name="Image" class="form-control ">
 
                 <button type="submit"  class="btn btn-success mt-4" >Submit</button>
