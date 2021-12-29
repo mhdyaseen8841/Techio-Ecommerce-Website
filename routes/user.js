@@ -9,6 +9,7 @@ var userHelper=require('../helpers/user-helpers')
 const API_KEY='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'
 const sgMail = require('@sendgrid/mail')
 const JWT_SECRET = 'some super secret ....'
+let COUPON_CODE='Yasi123'
 const verifyLogin=(req,res,next)=>{
   if(req.session.userloggedIn){
     next()
@@ -191,20 +192,48 @@ let total=0
 let allTotal=0
 if(products.length>0){
    total=await userHelper.getTotalAmount(req.session.user._id)
-   allTotal=total+40;
+   
+   if(total>1000){
+     orgTotal=true
+     allTotal=total
+     
+   }
+   else{
+     orgTotal=false
+    allTotal=total+40;
+   }
+   
 }
-console.log(products)
-res.render('user/cart',{products,user,'userId':req.session.user._id,allTotal,cartCount,total})
+else{
+  orgTotal=false
+}
+
+res.render('user/cart',{products,user,'userId':req.session.user._id,allTotal,cartCount,total,orgTotal})
   
 })
 
 router.post('/change-product-quantity',(req,res,next)=>{
+  console.log(req.body)
   
   userHelper.changeProductQuantity(req.body).then(async(response)=>{
     console.log(response)
     
+    if(req.body.quantity==1 && req.body.count==-1){
+      response.total=0;
+    }
+    else{
+
+    
     response.total=await userHelper.getTotalAmount(req.body.user)
-    response.allTotal=response.total+40;
+    if(response.total>1000){
+      response.orgTotal=true
+     response.allTotal=response.total
+    }
+    else{
+     response.allTotal=response.total+40;
+    }
+  }
+   
     console.log(response.allTotal)
     res.json(response)
   })
@@ -344,20 +373,90 @@ router.get('/products-list',async (req,res)=>{
   let pro=req.query.id
   console.log(req.query.id);
   let products;
+  let prod
+  let lap;
+  let phone;
+  let accss;
   if(pro==='lap'){
     console.log('hloooooohiiiii');
     products= await productHelper.getProductLaptop()
+    prod='Laptops'
+    lap=true
   }
   else if(pro==='phone'){
      products= await productHelper.getProductSmartphone()
+     prod='SmartPhones'
+     phone=true
   }
  else {
    products= await productHelper.getProductAccessories()
+   prod='Accessories'
+   accss=true
  }
   console.log(products);
-  res.render('user/product-list',{user,products,cartCount})
+  res.render('user/product-list',{user,products,cartCount,prod,lap,phone,accss})
 })
 
+router.post('/coupon-validation',async(req,res)=>{
+  console.log('hlooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiiiiiiiiiiiiiiiiiiiiiii');
+ 
+ 
+ console.log(req.body)
+ 
+ 
+ let user=req.session.user
+ let cartCount=null;
+ if(user){
+   cartCount=await userHelper.getCartCount(req.session.user._id)
+ }
+let products=await userHelper.getCartProducts(req.session.user._id)
+let total=0
+let allTotal=0
+let errorcpn=null;
+let status
+if(products.length>0){
+  total=await userHelper.getTotalAmount(req.session.user._id)
+   
+  if(req.body.couponcode===COUPON_CODE){
+    console.log('hello its working')
+    total=total/2;
+  status=true
 
+  }
+  else{
+    console.log('error')
+    status=false
+    errorcpn="coupon not valid"
+  }
+
+  if(total>1000){
+    orgTotal=true
+    allTotal=total
+  }
+  else{
+    orgTotal=false
+   allTotal=total+40;
+  }
+ 
+}
+
+res.render('user/cart',{products,user,'userId':req.session.user._id,allTotal,cartCount,total,orgTotal})
+  /* console.log('coupon code')
+  console.log(req.body.couponCode);
+  total=req.body.total
+ let response 
+  if(req.body.couponCode===COUPON_CODE){
+    console.log('hello its working')
+    total=total/2;
+response=true;
+
+  }
+  else{
+    console.log('error')
+    response=false
+  }
+  res.json({response,total})
+    */
+})
 
 module.exports = router;

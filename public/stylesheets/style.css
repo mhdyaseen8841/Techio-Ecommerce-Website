@@ -208,9 +208,7 @@ body {
     }
 }
 
-.connection {}
 
-.connection-dropdown {}
 
 .connection-list {
     width: 300px;
@@ -1117,7 +1115,7 @@ a {
     background-color: #ddd;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    padding: 4vh;
+    padding: 3vh;
     color: rgb(65, 65, 65)
 }
 
@@ -1196,7 +1194,7 @@ a {
     padding: 1vh;
     margin-bottom: 4vh;
     outline: none;
-    width: 100%;
+    width: 70%;
     background-color: rgb(247, 247, 247)
 }
 
@@ -1210,7 +1208,7 @@ a {
     color: white;
     width: 100%;
     font-size: 0.7rem;
-    margin-top: 4vh;
+    margin-top: 2vh;
     padding: 1vh;
     border-radius: 0
 }
@@ -1239,10 +1237,7 @@ a {
 }
 
 #code {
-    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
-    background-repeat: no-repeat;
-    background-position-x: 95%;
-    background-position-y: center
+   
 }
 
 
@@ -1283,6 +1278,9 @@ a {
 
 
 
+.list-group-item{
+border: none;
+}
 
 
 
@@ -1390,3 +1388,138 @@ a {
 
 
 
+
+
+
+
+
+
+
+
+
+/*sidebar*/
+
+
+
+
+#sidebar {
+    width: 20%;
+    padding: 10px;
+    margin: 0;
+    float: left
+}
+
+#sidebarproducts {
+    width: 80%;
+    padding: 10px;
+    margin: 0;
+    float: right
+}
+
+.ul-sidebar {
+    list-style: none;
+    padding: 5px
+}
+
+.a-sidebar{
+    color: darkgray;
+    text-decoration: none
+}
+
+ .a-sidebar :hover {
+    text-decoration: none;
+    color: darksalmon
+}
+
+.fa-circle {
+    font-size: 20px
+}
+
+#red {
+    color: #ff0000d7
+}
+
+#black {
+    color: rgb(0, 0, 0)
+}
+
+#grey {
+    color: #b4b4b4
+}
+
+
+
+.filter {
+    display: none;
+    padding: 0;
+    margin: 0
+}
+
+@media(min-width:991px) {
+  /*  .navbar-nav {
+        margin-left: 35%
+    }*/
+
+   
+   
+
+    #mobile-filter {
+        display: none
+    }
+}
+
+@media(min-width:768px) and (max-width:991px) {
+   
+
+    
+
+    #mobile-filter {
+        display: none
+    }
+}
+
+@media(min-width:568px) and (max-width:767px) {
+    
+    
+    .fa-circle {
+        font-size: 15px
+    }
+
+    #mobile-filter {
+        display: none
+    }
+}
+
+@media(max-width:567px) {
+  
+    #sidebar {
+        width: 100%;
+        padding: 10px;
+        margin: 0;
+        float: left
+    }
+
+    
+  
+    .list-group-item {
+        padding: 3px
+    }
+
+    .offset-1 {
+        margin-left: 8%
+    }
+
+    .filter {
+        display: block;
+        margin-left: 70%;
+        margin-top: 2%
+    }
+
+    #sidebar {
+        display: none
+    }
+
+    #mobile-filter {
+        padding: 10px
+    }
+}
