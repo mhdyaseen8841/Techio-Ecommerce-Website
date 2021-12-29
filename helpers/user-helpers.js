@@ -158,7 +158,7 @@ module.exports={
                 }
 
             ]).toArray()
-            console.log(cartItems)
+            
             resolve(cartItems)
             
         })
@@ -297,9 +297,9 @@ getOrderList:(userId)=>{
     })
 },
 getAllOrder:()=>{
-   let userId='61a8b40e5ee4f2c937408f1d';
+   
     return new Promise(async(resolve,reject)=>{
-        let orders=await db.get().collection(collection.ORDER_COLLECTION).find({userId:objectId(userId)}).toArray()
+        let orders=await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
         console.log('orders list')
         console.log(orders);
         resolve(orders)
@@ -453,19 +453,89 @@ getUserDetails:(userId)=>{
         })
         })
     
+    },
+
+
+    AddNewCoupon:(CouponDetails)=>{
+        return new Promise ((resolve,reject)=>{
+            db.get().collection(collection.COUPON_COLLECTION).insertOne(CouponDetails).then((data)=>{
+                resolve()
+            })
+        })
+    },
+    getCoupons:()=>{
+        return new Promise(async (resolve,reject)=>{
+  
+             
+             let coupons= await db.get().collection(collection.COUPON_COLLECTION).find().toArray()
+             
+            
+             resolve(coupons)
+         })
+     },
+     updateProduct:(proDetails,proId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:objectId(proId)},{$set:{
+                Name:proDetails.Name,
+                Category:proDetails.Category,
+                Price:proDetails.Price,
+                Seller:proDetails.Seller,
+                Description:proDetails.Description,
+                Delivery:proDetails.Delivery
+            }
+        }).then((response)=>{
+            resolve()
+        })
+        })
+    },
+    editCoupon:(id,cpDetails)=>{
+        return new Promise((resolve,reject)=>{
+            
+                    db.get().collection(collection.COUPON_COLLECTION).updateOne({_id:objectId(id)},{$set:{
+                        Name:cpDetails.Name,
+                        Code:cpDetails.Code,
+                        Discount:cpDetails.Discount
+
+                    }
+                }).then((response)=>{
+                    resolve()
+                
+        })
     }
+     )},
 
-
-
-
-
-
-
-
-
-
-
-
-    }
+     getCouponDetails:(couponId)=>{
+         return new Promise((resolve,reject)=>{
+             console.log('heloooooohiiiiiiiiiiiiiihiiiiioooooooooooooo')
+             console.log(couponId)
+            db.get().collection(collection.COUPON_COLLECTION).findOne({Code:couponId}).then((coupon)=>{
+                
+                  console.log(coupon);
+                  resolve(coupon)
+         })
+       
+     }
     
+         )},
+
+
+         deleteCoupon:(couponId)=>{
+             return new Promise((resolve,reject)=>{
+                 db.get().collection(collection.COUPON_COLLECTION).deleteOne({_id:objectId(couponId)}).then((response)=>{
+                     resolve(response)
+                 })
+             })
+         }
+
+
+
+
+
+
+
+
+
+
+
+    }
 

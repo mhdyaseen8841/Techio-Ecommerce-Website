@@ -1,26 +1,82 @@
-<section>
-    <div class="container mt-5">
-        <form action="/place-order" method="post"  id="checkout-form"> 
-            <div class="row">
-            <div class="col-md=6">
-                    <h2>Enter Delivery Details</h2>
-                <div>
-                <label for="">Address</label>
-                <input type="text" name="Address" value="{{userDetails.profileData.Address}}" class="form-control">
-                
-                 <label for="">Pincode</label>
-                <input type="number" name="Pincode" value="{{userDetails.profileData.Pincode}}" class="form-control">
 
-                 <label for="">Mobile</label>
-                <input type="number" name="Mobile" value="{{userDetails.profileData.Mobile}}" class="form-control">      
+
+
+<div class="row">
+  <div class="col-md-8 mb-4">
+    <div class="card mb-4">
+      <div class="card-header py-3">
+        <h5 class="mb-0">Billing details</h5>
+      </div>
+      <div class="card-body">
+         <form action="/place-order" method="post"  id="checkout-form"> 
+          <!-- 2 column grid layout with text inputs for the first and last names -->
+          
+              <div class="form-outline mb-4">
+                <input type="text" id="form7Example2" name="Name" value="{{userDetails.Name}}" class="form-control" />
                  <input type="text" name="userId" id="" value="{{user._id}}" hidden >
+                <label class="form-label" name="Name" for="form7Example2">Fullname</label>
+              </div>
+            
+         
+
+          
+
+          <!-- Text input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="form7Example4" name="Address" value="{{userDetails.Address}}" class="form-control" />
+            <label class="form-label" for="form7Example4">Address</label>
+          </div>
+
+          <!-- Text input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="form7Example3" name="Pincode" value="{{userDetails.Pincode}}" class="form-control" />
+            <label class="form-label" for="form7Example3">Pincode</label>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="form7Example5" name="Email" value="{{userDetails.Email}}" class="form-control" />
+            <label class="form-label" for="form7Example5">Email</label>
+          </div>
+
+          <!-- Number input -->
+          <div class="form-outline mb-4">
+            <input type="number" id="form7Example6" name="Mobile" value="{{userDetails.Mobile}}" class="form-control" />
+            <label class="form-label" for="form7Example6">Phone</label>
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card mb-4">
+      <div class="card-header py-3">
+        <h5 class="mb-0">Summary</h5>
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+            Products
+            <span>{{total}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+            Shipping
+            <span>Free</span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+            <div>
+              <strong>Total amount</strong>
+              <strong>
+                <p class="mb-0">(including VAT)</p>
+              </strong>
             </div>
-            </div>
-            <div class="col-md-4">
-                <div class="container mt-5 ml-5 checkout">
-            <h5>Total Amount: Rs.{{total}}</h5>
-            <hr>
-            <div class="payment">
+            <span><strong>{{total}}</strong></span>
+          </li>
+        </ul>
+ <div class="payment">
                 <p>Payment method</p>
                 <label class="radio-inline">
                     <input type="radio" name="payment-method" value="COD" checked>COD
@@ -28,19 +84,35 @@
                 <label class="radio-inline mt-2">
                     <input type="radio" name="payment-method" value="ONLINE" >ONLINE PAYMENT
                 </label>
-                <button class="btn btn-success float-right" type="submit">Place Order</button>
-            </div>
-            </div>
-            </div>
+               
 
             </div>
+
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">
+          Make purchase
+        </button>
         </form>
+      </div>
     </div>
-</section>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
-
-
-
 
     $("#checkout-form").submit((e)=>{
        e.preventDefault()
@@ -49,7 +121,7 @@
             method:'post',
             data:$('#checkout-form').serialize(),
             success:(Response)=>{
-                alert(Response)
+                
                 if(Response.cod_success){
                     location.href='/ordered-response'
                 }
@@ -66,7 +138,7 @@
     "key": "rzp_test_Uakhyu7rd2ie3B", // Enter the Key ID generated from the Dashboard
     "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
-    "name": "CrossRoads",
+    "name": "MohammedYaseen",
     "description": "Test Transaction",
     "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vhv.rs%2Fviewpic%2FhTmbihT_e-commerce-png-transparent-twitter-logo-blue-png%2F&psig=AOvVaw3-ZlfI_RDIfbj-qcVWqxmh&ust=1638540508865000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPjqyJ-lxfQCFQAAAAAdAAAAABAD",
     "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1

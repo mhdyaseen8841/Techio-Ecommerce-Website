@@ -74,10 +74,10 @@
                 </div>
                  <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                 <div class="col">TOTAL PRICE</div>
-                <div class="col text-right" >₹<span >{{allTotal}}.00</span></div>
+                <div class="col text-right" id="alltotal" >₹<span >{{allTotal}}.00</span></div>
                 </div>
                 {{/if}}
-            <a class="btn btn-cart" href="/place-order">CHECKOUT</a>
+            <a class="btn btn-cart" href="/place-order?id={{allTotal}}">CHECKOUT</a>
         </div>
     </div>
 </div>
@@ -107,8 +107,9 @@
           location.reload()
         }
         else{
+        
           document.getElementById(proId).innerHTML=quantity+count
-          document.getElementById('total').innerHTML=response.total
+          
           document.getElementById('prodtotal').innerHTML=response.total
           document.getElementById('alltotal').innerHTML=response.allTotal
         }

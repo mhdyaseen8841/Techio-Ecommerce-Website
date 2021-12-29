@@ -1,0 +1,22 @@
+<section>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">Edit Coupon</h2>
+                <hr>
+                
+                <form action="/admin/edit-coupon?id={{coupon._id}}"  method="POST" >
+                <label for="">Coupon Name</label>
+                <input type="text" name="Name" value="{{coupon.Name}}" class="form-control">
+                <label for="">Coupon Code</label>
+                <input type="text" name="Code" value="{{coupon.Code}}" class="form-control">
+                
+                 <label for="">Discount Percentage</label>
+                <input type="text" name="Discount" value="{{coupon.Discount}}" class="form-control">
+               
+                <button type="submit"  class="btn btn-success mt-4" >Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

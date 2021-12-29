@@ -250,7 +250,9 @@ router.post('/remove-cart-products',(req,res,next)=>{
 })
 router.get('/place-order',verifyLogin,async(req,res)=>{
   let userDetails=await userHelper.getUserDetails(req.session.user._id)
-  let total=await userHelper.getTotalAmount(req.session.user._id)
+  let total=req.query.id
+  
+  console.log(total)
   res.render('user/order-page',{total,user: req.session.user,userDetails})
 })
 
@@ -352,6 +354,8 @@ router.get('/edit-profile',async (req,res)=>{
  
   res.render('user/edit-profile',{user,userDetails,cartCount})
 })
+
+
 router.post('/edit-profile',(req,res)=>{
   let user=req.session.user
   userHelper.editUser(user._id,req.body).then(()=>{
@@ -398,26 +402,29 @@ router.get('/products-list',async (req,res)=>{
 })
 
 router.post('/coupon-validation',async(req,res)=>{
-  console.log('hlooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiiiiiiiiiiiiiiiiiiiiiii');
- 
- 
+  
  console.log(req.body)
  
- 
+ let couponId=req.body.couponcode
+ console.log(couponId)
  let user=req.session.user
  let cartCount=null;
+ 
  if(user){
+   console.log('love u')
    cartCount=await userHelper.getCartCount(req.session.user._id)
  }
 let products=await userHelper.getCartProducts(req.session.user._id)
+console.log('love u too')
 let total=0
 let allTotal=0
 let errorcpn=null;
 let status
+let coupon=await userHelper.getCouponDetails(couponId)
 if(products.length>0){
   total=await userHelper.getTotalAmount(req.session.user._id)
-   
-  if(req.body.couponcode===COUPON_CODE){
+  
+  if(coupon){
     console.log('hello its working')
     total=total/2;
   status=true
@@ -439,24 +446,7 @@ if(products.length>0){
   }
  
 }
-
 res.render('user/cart',{products,user,'userId':req.session.user._id,allTotal,cartCount,total,orgTotal})
-  /* console.log('coupon code')
-  console.log(req.body.couponCode);
-  total=req.body.total
- let response 
-  if(req.body.couponCode===COUPON_CODE){
-    console.log('hello its working')
-    total=total/2;
-response=true;
-
-  }
-  else{
-    console.log('error')
-    response=false
-  }
-  res.json({response,total})
-    */
 })
 
 module.exports = router;

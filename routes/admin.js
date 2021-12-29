@@ -157,4 +157,42 @@ router.get('/all-orders', async (req,res)=>{
   res.render('admin/all-orders',{products})
 })
 
+router.get('/coupons',(req,res)=>{
+  userHelper.getCoupons().then((coupons)=>{
+    res.render('admin/coupons',{coupons})
+
+  })
+  
+})
+router.get('/new-coupon',(req,res)=>{
+  res.render('admin/new-coupon')
+})
+
+router.post('/new-coupon',(req,res)=>{
+   userHelper.AddNewCoupon(req.body).then(()=>{
+     res.render('admin/new-coupon')
+   })
+})
+
+router.get('/edit-coupon',async(req,res)=>{
+couponId=req.query.id
+let coupon=await userHelper.getCouponDetails(couponId)
+  res.render('admin/edit-coupon',{coupon})
+})
+
+router.post('/edit-coupon',(req,res)=>{
+  id=req.query.id
+  userHelper.editCoupon(id,req.body).then(()=>{
+    res.redirect('/admin/coupons')
+  })
+})
+  
+  router.get('/delete-coupon',(req,res)=>{
+    let couponId=req.query.id
+    userHelper.deleteCoupon(couponId).then((response)=>{
+      res.redirect('/admin/coupons')
+  })
+
+})
+
 module.exports = router;

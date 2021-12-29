@@ -9,8 +9,8 @@ module.exports={
         })
     },
     getallproducts:()=>{
-        return new Promise(async (resolve,reject)=>{
-
+       return new Promise(async (resolve,reject)=>{
+ 
             
             let product= await db.get().collection(collection.PRODUCT_COLLECTION).find().toArray()
             

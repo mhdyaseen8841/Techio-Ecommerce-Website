@@ -1,0 +1,45 @@
+<div class="row mt-4 pb-5 ">
+        <a  class="btn btn-success ml-auto" style="width: 200px"  href="/admin/new-coupon">New Coupon</a>
+       
+    </div>
+
+<table class="table mt-5 pt-4" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Coupon Name</th>
+     
+      <th scope="col">Coupon Code</th>
+      
+      <th scope="col">Discount</th>
+     
+      <th>Edit</th>
+      <th>Delete</th>     
+    </tr>
+    
+  </thead>
+  <tbody>
+  {{#each coupons}}
+  <th scope="row">{{@key}}</th>
+      <td>{{this.Name}}</td>
+ <td>{{this.Code}}</td>
+  <td>{{this.Discount}}%</td>
+  <td><a class="btn btn-primary" href="/admin/edit-coupon?id={{this._id}}">Edit</a> </td>
+  <td><a class="btn btn-danger" href="/admin/delete-coupon?id={{this._id}}" onclick="return confirm('Are you sure want to delete {{this.Name}}')">Delete</a> </td>
+      
+    <!-- {{#each coupon}}
+    <tr>
+      <th scope="row">{{@key}}</th>
+      <td>{{this.Name}}</td>
+      <td>{{this.Category}}</td>
+      <td><img class="card-img-top" style="width: 100px; height:80px" src="/product-images/{{this._id}}1.jpg"
+                            alt="Card image cap"></td>
+      <td><a class="btn btn-primary" href="/admin/edit-product?id={{this._id}}">Edit</a> </td>
+      <td><a class="btn btn-danger" href="/admin/delete-product?id={{this._id}}" onclick="return confirm('Are you sure want to delete {{this.Name}}')">Delete</a> </td>
+      
+    </tr>
+    {{/each}}
+   -->
+   {{/each}}
+  </tbody>
+</table>
