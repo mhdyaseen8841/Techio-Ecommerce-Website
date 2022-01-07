@@ -14,15 +14,15 @@
  {{#each products}}
             <div class="row border-top border-bottom">
                 <div class="row main align-items-center">
-                    <div class="col-2"><img class="img-cart img-fluid"  src="/product-images/{{this.product._id}}1.jpg"></div>
+                    <div class="col"><img class="img-cart img-fluid"  src="/product-images/{{this.product._id}}1.jpg"></div>
                     <div class="col">
                         <div class="row text-muted">{{this.product.Name}}</div>
                         <div class="row">{{this.product.Category}}</div>
                     </div>
                      
-                    <div class="col"> <button class=" cart-item-count mr-3 border"  onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}',-1)" >-</button>
+                    <div class="col"> <button class=" cart-item-count border"  onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}',-1)" >-</button>
          <span style="width: 100px;" id="{{this.product._id}}">{{this.quantity}}</span> 
-          <button class=" cart-item-count ml-3 border" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}',1)">+</button></div>
+          <button class=" cart-item-count border" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userId}}',1)">+</button></div>
                     <div class="col">₹{{this.product.Price}}<a class="close" onclick="removeCartItem('{{this._id}}','{{this.product._id}}')"><i class="fas fa-trash-alt"></i></a></div>
                 </div>
             </div>

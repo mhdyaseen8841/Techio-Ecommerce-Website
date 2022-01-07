@@ -57,9 +57,9 @@
                 <hr />
                 <div class="description description-tabs">
                     <ul id="myTab" class="nav nav-pills">
-                        <li class="nav-link "><a href="#more-information" data-toggle="tab"  role="tab" class="no-margin">Product Description </a></li>
+                       <!-- <li class="nav-link "><a href="#more-information" data-toggle="tab"  role="tab" class="no-margin">Product Description </a></li>
                         <li class="nav-link "><a href="#specifications" data-toggle="tab">Specifications</a></li>
-                        <li class="nav-link"><a href="#reviews" data-toggle="tab">Reviews</a></li>
+                        <li class="nav-link"><a href="#reviews" data-toggle="tab">Reviews</a></li> -->
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade activein show active" id="more-information">
@@ -69,7 +69,7 @@
                                {{product.Description}}
                             </p>
                         </div>
-                        <div class="tab-pane fade" id="specifications">
+                    <!--    <div class="tab-pane fade" id="specifications">
                             <br />
                             <dl class="">
                                 <dt>Gravina</dt>
@@ -156,6 +156,9 @@
                                 </ul>
                             </div>
                         </div>
+
+
+                        -->
                     </div>
                 </div>
 
@@ -172,7 +175,8 @@
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
                         <div class="btn-group pull-right">
-                            <button class="btn btn-white btn-default"><i class="fa fa-star"></i> Add to wishlist</button>
+                            
+                           <p> <button onclick="addToWishlist('{{product._id}}')" class="btn btn-white btn-default"><i class="fa fa-star"></i> Add to wishlist</button></p>
                             <button class="btn btn-white btn-default"><i class="fa fa-envelope"></i> Contact Seller</button>
                         </div>
                     </div>

@@ -16,6 +16,18 @@
   
 
     
-
+function addToWishlist(proId){
+    $.ajax({
+        url:'/addtowishlist/'+proId,
+        method:'get',
+        success:(response)=>{
+            if(response.status){
+                let count=$('#wish-count').html()
+                count=parseInt(count)+1
+                $("#wish-count").html(count)
+            }
+        }
+    })
+}
    
 

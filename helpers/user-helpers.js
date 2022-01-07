@@ -1,10 +1,12 @@
 var db=require('../config/connection')
 var collection=require('../config/collection')
+var moment = require('moment'); 
 const bcrypt=require('bcrypt')
 var objectId=require('mongodb').ObjectID
 const Razorpay= require('razorpay')
 const e = require('express')
-const { response } = require('express')
+const { response } = require('express');
+const { resolve } = require('path');
 var instance = new Razorpay({
     key_id: 'rzp_test_Uakhyu7rd2ie3B',
     key_secret: '3p8ZHSdwg5qBiUEiZHJVIKXz',
@@ -84,6 +86,51 @@ module.exports={
             }
         })
     },
+    addToWishlist:(proId,userId)=>{
+        let proObj={
+            item:objectId(proId),
+        }
+        return new Promise(async(resolve,reject)=>{
+            let wishlist=await db.get().collection(collection.WISHLIST_COLLECTION).findOne({user:objectId(userId)})
+            if(wishlist){
+                
+                    let proExist=wishlist.product.findIndex(product=> product.item==proId)
+                    console.log('prooooooooooooo exist')
+                    console.log(proExist);
+                    if(proExist!=-1){
+                        db.get().collection(collection.WISHLIST_COLLECTION)
+                        .updateOne({user:objectId(userId),'product.item':objectId(proId)},
+                        {
+                            $inc:{'product.$.quantity':0}
+                        }
+                        ).then(()=>{
+                            resolve()
+                            
+                        })
+                    }else{
+                db.get().collection(collection.WISHLIST_COLLECTION).updateOne({user:objectId(userId)},
+                {
+                   
+                        $push:{product:proObj}
+                    
+                }).then((response)=>{
+                    resolve()
+                })
+            }
+            }  
+            else{
+                cartObj={
+                    user:objectId(userId),
+                    product:[proObj]
+                }
+
+                db.get().collection(collection.WISHLIST_COLLECTION).insertOne(cartObj).then((result)=>{
+                    resolve()
+                })
+            }
+        
+        })
+    },
     addToCart:(proId,userId)=>{
         let proObj={
             item:objectId(proId),
@@ -127,6 +174,40 @@ module.exports={
                     resolve()
                 })
             }
+        })
+    },
+    getWishlistProducts:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let wishlist=await db.get().collection(collection.WISHLIST_COLLECTION).aggregate([
+                {
+                    $match:{user:objectId(userId)}
+                },
+                {
+                    $unwind:'$product'
+                },{
+                    $project:{
+                        item:'$product.item',
+                        
+                    }
+                },
+                {
+                    $lookup:{
+                        from:collection.PRODUCT_COLLECTION,
+                        localField:'item',
+                        foreignField:'_id',
+                        as:'product'
+                    }
+                },
+                {
+                    $project:{
+                       item:1,product:{$arrayElemAt:['$product',0]}
+                    }
+                }
+
+            ]).toArray()
+            
+            resolve(wishlist)
+            
         })
     },
     getCartProducts:(userId)=>{
@@ -201,6 +282,17 @@ module.exports={
            
         })
     },
+    removeWishlistProducts:(details)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.WISHLIST_COLLECTION)
+            .updateOne({_id:objectId(details.wishlist)},
+            {
+                $pull:{product:{item:objectId(details.product)}}
+            }).then((response)=>{
+                resolve({removeProduct:true})
+            })
+        })
+    },
     removeCartProducts:(details)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.CART_COLLECTION)
@@ -257,11 +349,13 @@ module.exports={
     },
     PlaceOrder:(order,product,total)=>{
         return new Promise((resolve,reject)=>{
-            console.log('hloooooooooooo')
             let status=order['payment-method']==='COD'?'placed':'pending'
-            
+           let nwdate=new Date()
+            var date= moment(nwdate).format('MMM Do YY');
+            var time= moment(nwdate).format('LT')
             let orderObj={
                 deliveryDetails:{
+                    name:order.Name,
                     mobile:order.Mobile,
                     address:order.Address,
                     pincode:order.Pincode
@@ -270,7 +364,8 @@ module.exports={
                 paymentMethod:order['payment-method'],
                 product:product,
                 totalAmount:total,
-                date:new Date(),
+                date:date,
+                time:time,
                 status:status
             }
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response)=>{
@@ -291,8 +386,7 @@ module.exports={
 getOrderList:(userId)=>{
     return new Promise(async(resolve,reject)=>{
         let orders=await db.get().collection(collection.ORDER_COLLECTION).find({userId:objectId(userId)}).toArray()
-        console.log('orders list')
-        console.log(orders);
+       
         resolve(orders)
     })
 },
@@ -300,9 +394,15 @@ getAllOrder:()=>{
    
     return new Promise(async(resolve,reject)=>{
         let orders=await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
-        console.log('orders list')
-        console.log(orders);
+       
         resolve(orders)
+    })
+},
+getTotalDetails:(orderId)=>{
+    return new Promise(async(resolve,reject)=>{
+        let totalDetails=await db.get().collection(collection.ORDER_COLLECTION).findOne({_id:objectId(orderId)})
+        
+        resolve(totalDetails)
     })
 },
 getOrderProducts:(orderId)=>{
@@ -335,7 +435,7 @@ getOrderProducts:(orderId)=>{
             }
 
         ]).toArray()
-        console.log(orderItems)
+        
         resolve(orderItems)
         
     })
@@ -347,9 +447,13 @@ generateRazorPay:(orderId,price)=>{
              currency: "INR",
              receipt: ""+orderId,  
              notes: {    key1: "value3",    key2: "value2"  }},(err,order)=>{
+                
+                 console.log(order)
                  if(err){
+                     
                      console.log(err);
                  }else{
+                     
                 console.log("new Order:",order)
                 resolve(order)
                  }

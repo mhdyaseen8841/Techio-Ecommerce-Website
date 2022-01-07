@@ -7,7 +7,10 @@ var router = express.Router();
 var productHelper=require('../helpers/product-helpers')
 var userHelper=require('../helpers/user-helpers')
 const API_KEY='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'
-const sgMail = require('@sendgrid/mail')
+const sgMail = require('@sendgrid/mail');
+const { ConnectionClosedEvent } = require('mongodb');
+const { reset } = require('nodemon');
+const userHelpers = require('../helpers/user-helpers');
 const JWT_SECRET = 'some super secret ....'
 let COUPON_CODE='Yasi123'
 const verifyLogin=(req,res,next)=>{
@@ -79,8 +82,10 @@ router.post('/forgotPassword',(req,res)=>{
 })
 
 router.get('/confirm-user',async (req,res)=>{
+  
   console.log(req.query.id)
   let user= await userHelper.getUserDetails(req.query.id)
+  
   console.log(user)
   const secret =JWT_SECRET + user.Password
   const payload={
@@ -88,7 +93,7 @@ router.get('/confirm-user',async (req,res)=>{
     id:user._id
   }
   const token = jwt.sign(payload, secret, {expiresIn:'15m'})
-  const link=`http://localhost:3001/reset-password/${user._id}/${token}`
+  const link=`http://localhost:3005/reset-password/${user._id}/${token}`
   sgMail.setApiKey(API_KEY)
 const message={
   to: user.Email,
@@ -96,8 +101,8 @@ const message={
     name:'Mohammed Yaseen',
     email:'yyaseen080@gmail.com'
   },
-  subject: 'hello from yaseen',
-  text:'hello from yasi',
+  subject: 'Hello From Team Techio',
+  text:'Click this link to change your password in Techio',
   html:link
 }
 sgMail.send(message).then((response)=>console.log('email send'))
@@ -114,7 +119,7 @@ if(user){
  const secret= JWT_SECRET+user.Password
  try{
    const payload=jwt.verify(token, secret)
-   console.log('ithaan tta id')
+   
    console.log(id)
    res.render('user/reset-password',{email:user.Email,id:id})
  }
@@ -175,13 +180,33 @@ router.get('/logout',(req,res)=>{
   res.redirect('/')
 })
 
-router.get('/addtocart/:id',verifyLogin,(req,res)=>{ 
+router.get('/addtocart/:id',verifyLogin,(req,res,next)=>{ 
+  console.log('hlooooooooooooo');
   userHelper.addToCart(req.params.id,req.session.user._id).then(()=>{
   res.json({status:true})
   })
 })
 
-router.get('/cart',verifyLogin,async (req,res)=>{
+router.get('/addtowishlist/:id',verifyLogin,async (req,res,next)=>{
+ userHelpers.addToWishlist(req.params.id,req.session.user._id).then(()=>{
+  console.log("hloooooooo000000000000") 
+  console.log(response)
+   res.json({status:true})
+ })
+})
+
+router.get('/wishlist',verifyLogin,async (req,res,next)=>{
+  let user=req.session.user
+  let cartCount=null;
+  if(user){
+    cartCount=await userHelper.getCartCount(req.session.user._id)
+  }
+  let products=await userHelper.getWishlistProducts(req.session.user._id)
+  console.log(products)
+  res.render('user/wishlist',{user,cartCount,products})
+})
+
+router.get('/cart',verifyLogin,async (req,res,next)=>{
   let user=req.session.user
   let cartCount=null;
   if(user){
@@ -239,6 +264,11 @@ router.post('/change-product-quantity',(req,res,next)=>{
   })
 })
 
+router.post('/remove-wishlist-products',(req,res,next)=>{
+  userHelper.removeWishlistProducts(req.body).then((response)=>{
+    res.json(response)
+  })
+})
 
 
 router.post('/remove-cart-products',(req,res,next)=>{
@@ -276,13 +306,22 @@ router.post('/place-order',verifyLogin,async(req,res)=>{
 router.get('/ordered-response',async (req,res)=>{
   let user=req.session.user
   let cartCount=null;
+  let mode=req.query.id
+  let cod;
+  let online;
   if(user){
     cartCount=await userHelper.getCartCount(req.session.user._id)
   }
-  res.render('user/ordered-response',{user,cartCount})
+  if(mode=='cod'){
+    cod=true
+  }
+  else{
+    online=true;
+  }
+  res.render('user/ordered-response',{user,cartCount,cod,online})
 })
 
-router.get('/orders', async (req,res)=>{
+router.get('/orders',verifyLogin ,async(req,res,next)=>{
 
   let user=req.session.user
   let cartCount=null;
@@ -294,14 +333,22 @@ router.get('/orders', async (req,res)=>{
   res.render('user/order-list',{products,user,cartCount})
 })
 
+
 router.get('/view-order-products',async(req,res)=>{
   let user=req.session.user
   let cartCount=null;
+  let paid;
   if(user){
     cartCount=await userHelper.getCartCount(req.session.user._id)
   }
+  let orderdetails=await userHelper.getTotalDetails(req.query.id)
+ if(orderdetails.status=='placed'&& orderdetails.paymentMethod=='ONLINE'){
+  paid=true;
+ }
+
   let products=await userHelper.getOrderProducts(req.query.id)
-  res.render('user/view-order-products',{user,products,cartCount})
+ console.log(orderdetails)
+  res.render('user/view-order-products',{user,products,cartCount,orderdetails,paid})
 })
 
 router.post('/verify-payment',(req,res)=>{
@@ -367,7 +414,6 @@ router.post('/edit-profile',(req,res)=>{
 })
 
 
-
 router.get('/products-list',async (req,res)=>{
   let user=req.session.user
   let cartCount=null;
@@ -376,11 +422,7 @@ router.get('/products-list',async (req,res)=>{
   }
   let pro=req.query.id
   console.log(req.query.id);
-  let products;
-  let prod
-  let lap;
-  let phone;
-  let accss;
+  
   if(pro==='lap'){
     console.log('hloooooohiiiii');
     products= await productHelper.getProductLaptop()
@@ -411,11 +453,11 @@ router.post('/coupon-validation',async(req,res)=>{
  let cartCount=null;
  
  if(user){
-   console.log('love u')
+  
    cartCount=await userHelper.getCartCount(req.session.user._id)
  }
 let products=await userHelper.getCartProducts(req.session.user._id)
-console.log('love u too')
+
 let total=0
 let allTotal=0
 let errorcpn=null;

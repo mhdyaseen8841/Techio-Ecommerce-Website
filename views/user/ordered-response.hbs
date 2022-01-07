@@ -9,17 +9,26 @@
       </div>
     </div>
 
-<section>
-    <div class="row">
-   <div class="container">
-       <div class="col-md-12 text-center">
-          <h3>Order Placed </h3>
 
-          <a type="button" class="btn btn-success" href="/orders">View Orders</a>
-       </div>
-   </div>
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-4 mt-3">
+        <div class="first d-flex justify-content-between align-items-center mb-3">
+            <div class="info"> <span class="d-block name-orderedResponse">Thank you, {{user.Name}}</span> <span class="order">Order - 4554645</span> </div> <img src="https://i.imgur.com/NiAVkEw.png" width="40" />
+        </div>
+        <div class="detail"> <span class="d-block summery">Your order has been placed . we are delivering you order.</span> </div>
+        <hr>
+        <div class="text"> <span class="d-block new mb-1">{{user.Name}}</span> </div> <span class="d-block address mb-3">{{user.Address}}</span>
+        <div class=" money d-flex flex-row mt-2 align-items-center"> <img src="https://i.imgur.com/ppwgjMU.png" width="20" />
+        {{#if cod}}
+         <span class="ml-2">Cash on Delivery</span>
+        {{else}}
+        <span class="ml-2">Paid Online</span>
+        {{/if}}
+        </div>
+        <div class="last d-flex align-items-center mt-3"> <a class=" btn address-line" href="/orders">View Orders</a> </div>
     </div>
-</section>
+</div>
 
 
 

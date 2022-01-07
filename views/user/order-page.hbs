@@ -33,12 +33,7 @@
             <label class="form-label" for="form7Example3">Pincode</label>
           </div>
 
-          <!-- Email input -->
-          <div class="form-outline mb-4">
-            <input type="email" id="form7Example5" name="Email" value="{{userDetails.Email}}" class="form-control" />
-            <label class="form-label" for="form7Example5">Email</label>
-          </div>
-
+       
           <!-- Number input -->
           <div class="form-outline mb-4">
             <input type="number" id="form7Example6" name="Mobile" value="{{userDetails.Mobile}}" class="form-control" />
@@ -123,7 +118,7 @@
             success:(Response)=>{
                 
                 if(Response.cod_success){
-                    location.href='/ordered-response'
+                    location.href='/ordered-response?id=cod'
                 }
                 else{
                     razorpayPayment(Response)
@@ -183,6 +178,8 @@
         })
     }
 </script>
+
+
 <style>
     input[type=radio]{
         width: 20px;
