@@ -8,17 +8,17 @@
 				        <table cellpadding="0" cellspacing="0" border="0" width="100%">
 				        	<thead>
 					        	<tr>
-					        		<th width="45%">Product Name</th>
-					        		<th width="15%">Unit Price</th>
-					        		<th width="15%">Stock Status</th>
-					        		<th width="15%"></th>
+					        		<th width="20%">Product </th>
+					        		<th width="35%"> Name</th>
+					        		
+					        		<th width="35%">Add to Cart</th>
 					        		<th width="10%"></th>
 					        	</tr>
 					        </thead>
 					        <tbody>
                                 {{#each products}}
 					        	<tr>
-					        		<td width="45%">
+					        		<td width="20%">
 					        			<div class="display-flex align-center">
 		                                    <div class="img-product">
 		                                        <img src="/product-images/{{this.product._id}}1.jpg" alt="" class="mCS_img_loaded">
@@ -28,10 +28,10 @@
 		                                    </div>
 	                                    </div>
 	                                </td>
-					        		<td width="15%" class="price">₹{{this.product.Price}}</td>
-					        		<td width="15%"><span class="in-stock-box">In Stock</span></td>
+					        		<td width="35%" class="name">{{this.product.Name}}</td>
+					        		
 
-					        		<td width="15%"><button  onclick="addToCart('{{this.product._id}}')" class="round-black-btn small-btn">Add to Cart</button></td>
+					        		<td width="35%"><button  onclick="addToCart('{{this.product._id}}')" class="round-black-btn small-btn">Add to Cart</button></td>
 					        		<td width="10%" class="text-center"><a onclick="removeCartItem('{{this._id}}','{{this.product._id}}')" class="trash-icon"><i class="far fa-trash-alt"></i></a></td>
 					        	</tr>
 					        	{{/each}}

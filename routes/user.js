@@ -92,6 +92,7 @@ router.get('/confirm-user',async (req,res)=>{
     email: user.Email,
     id:user._id
   }
+  console.log(user.Email)
   const token = jwt.sign(payload, secret, {expiresIn:'15m'})
   const link=`http://localhost:3005/reset-password/${user._id}/${token}`
   sgMail.setApiKey(API_KEY)
@@ -105,10 +106,12 @@ const message={
   text:'Click this link to change your password in Techio',
   html:link
 }
-sgMail.send(message).then((response)=>console.log('email send'))
+sgMail.send(message).then((response)=>{console.log(response)
+  console.log('email send')})
+
 .catch((error)=>console.log(error.message))
   console.log(link)
-  res.send('Password reset link sent to your gmail')
+  res.render('user/resetpass-response')
 })
 
 
@@ -363,7 +366,7 @@ router.post('/verify-payment',(req,res)=>{
 })
 
 
-router.get('/user-profile',async (req,res)=>{
+router.get('/user-profile',verifyLogin,async (req,res)=>{
  
   let user=req.session.user
   let cartCount=null;
@@ -417,12 +420,15 @@ router.post('/edit-profile',(req,res)=>{
 router.get('/products-list',async (req,res)=>{
   let user=req.session.user
   let cartCount=null;
+  let lap;
+  let prod
+  let accss
   if(user){
     cartCount=await userHelper.getCartCount(req.session.user._id)
   }
   let pro=req.query.id
   console.log(req.query.id);
-  
+  console.log('hi')
   if(pro==='lap'){
     console.log('hloooooohiiiii');
     products= await productHelper.getProductLaptop()
@@ -430,11 +436,13 @@ router.get('/products-list',async (req,res)=>{
     lap=true
   }
   else if(pro==='phone'){
+    console.log('loi')
      products= await productHelper.getProductSmartphone()
      prod='SmartPhones'
      phone=true
   }
  else {
+   console.log('kui')
    products= await productHelper.getProductAccessories()
    prod='Accessories'
    accss=true
@@ -490,5 +498,14 @@ if(products.length>0){
 }
 res.render('user/cart',{products,user,'userId':req.session.user._id,allTotal,cartCount,total,orgTotal})
 })
+
+
+router.get('/contact-form',(req,res)=>{
+  res.render('admin/contact-form')
+})
+router.post('/contact-form',(req,res)=>{
+  console.log(req.body)
+})
+
 
 module.exports = router;

@@ -25,7 +25,7 @@ body {
     margin-right: 1rem;
     line-height: inherit;
     white-space: nowrap;
-    padding: 11px 20px;
+    
     font-size: 30px;
     text-transform: uppercase;
     font-weight: 700;
@@ -52,10 +52,14 @@ body {
     line-height: 2;
     color: #82849f
 }
-.navbar-user{
+.nav-main{
     z-index: 10000;
-    
+    position: sticky;
+    top:0;
     width: 100%;
+}
+.navbar-user{
+  
 }
 .top-search-bar {
     padding-top: 12px;
@@ -364,7 +368,12 @@ body {
 
 /*</Ad-banner css>*/
 
-
+.procard img{
+    transition: 0.5s all ease-in-out;
+}
+.procard :hover img{
+    transform: scale(1.05);
+}
 
 
 
@@ -1637,6 +1646,17 @@ border: none;
     .highlights-allpadding{
     padding-left: 20%;
 }
+.round-black-btn {
+	border-radius: 5px;
+    background: #212529;
+    color: #fff;
+    padding: 5px 5px;
+    display: inline-block;
+    border: solid 2px #212529; 
+    transition: all 0.5s ease-in-out 0s;
+    cursor: pointer;
+    font-size: 14px;
+}
    
 .highlight-captions{
     padding-left: 20%;
@@ -1648,11 +1668,15 @@ border: none;
     
 }
 
-
-
+.table-wishlist tr td .img-product {
+    width: 92px;
+    float: left;
+    margin-left: 8px;
+    margin-right: 31px;
+    line-height: 63px;
 }
 
-
+}
 
 
 
@@ -1686,7 +1710,7 @@ border: none;
     vertical-align: middle;
 }
 .table-wishlist tr td .img-product {
-    width: 72px;
+    width: 92px;
     float: left;
     margin-left: 8px;
     margin-right: 31px;
@@ -1724,7 +1748,7 @@ border: none;
 	border-radius: 25px;
     background: #212529;
     color: #fff;
-    padding: 5px 20px;
+    padding: 5px 10px;
     display: inline-block;
     border: solid 2px #212529; 
     transition: all 0.5s ease-in-out 0s;
@@ -1800,3 +1824,52 @@ border: none;
     font-size: 20px;
     color: #212529;
 }
+
+
+/*navbar hover*/
+
+/* Dropdown Button */
+.dropbtn {
+    
+    background-color: white;
+    border: none;
+    
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    transition: 0.9s;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: rgb(255, 255, 255);
+    transition: 0.9s;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;
+    transition: 0.9s;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {background-color: none;
+    transition: 0.9s;
+border-radius: 10%;}

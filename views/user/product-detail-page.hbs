@@ -12,9 +12,9 @@
 
 <div id='slideshow-items-container'>
 
-  <img class='slideshow-items active' src="product-images/{{product._id}}1.jpg">
-  <img class='slideshow-items' src="product-images/{{product._id}}2.jpg">
-  <img class='slideshow-items' src="product-images/{{product._id}}3.jpg">
+  <img style="width: 100%;" class='slideshow-items active' src="product-images/{{product._id}}1.jpg">
+  <img style="width: 100%;" class='slideshow-items' src="product-images/{{product._id}}2.jpg">
+  <img style="width: 100%;" class='slideshow-items' src="product-images/{{product._id}}3.jpg">
 
 </div>
 
@@ -177,7 +177,7 @@
                         <div class="btn-group pull-right">
                             
                            <p> <button onclick="addToWishlist('{{product._id}}')" class="btn btn-white btn-default"><i class="fa fa-star"></i> Add to wishlist</button></p>
-                            <button class="btn btn-white btn-default"><i class="fa fa-envelope"></i> Contact Seller</button>
+                            <a  href="/contact-form" class="btn btn-white btn-default"><i class="fa fa-envelope"></i> Contact Seller</a>
                         </div>
                     </div>
                 </div>

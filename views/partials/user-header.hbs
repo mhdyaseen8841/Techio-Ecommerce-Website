@@ -1,28 +1,21 @@
-
+ <div class="nav-main">
  {{#if index}}
  <div class="header-to-bar "> HELLO EVERYONE! 25% Off All Products </div>
  {{/if}}
+
 <!--new header-->
 
 <!-- Navbar -->
 <nav class="navbar navbar-user navbar-expand-lg navbar-light bg-light" style=" border-bottom: 2px solid rgb(236, 235, 235);">
+
+  
   <!-- Container wrapper -->
   <div class="container">
-    <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
-    </button>
+    
+   
 
     <!-- Collapsible wrapper -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
       <!-- Navbar brand -->
       <a class="navbar-brand mt-2 mt-lg-0" href="/">
         <img
@@ -32,13 +25,23 @@
           loading="lazy"
         />
       </a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Left links -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/">Products</a>
+
+         <div class="dropdown">
+  <button class="dropbtn nav-link">Products <i class="fas fa-sort-down"></i></button>
+  <div class="dropdown-content">
+    <a  href="/products-list?id=lap">Laptops</a>
+    <a href="/products-list?id=phone">Mobiles</a>
+    <a  href="/products-list?id=accessory">Accessories</a>
+  </div>
+</div>
+
         </li>
         <li class="nav-item">
-             <a class="nav-link " href="/cart">Popular Products</a>
+             <a class="nav-link " href="/wishlist">Wishlist </a>
           
         </li>
         <li class="nav-item">
@@ -100,6 +103,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     {{#if user}}
     <a class="dropdown-item" href="/user-profile">Profile</a>
+    <a class="dropdown-item" href="/orders">Orders</a>
     <a class="dropdown-item" href="/logout">Logout</a>
     {{else}}
     <a class="dropdown-item" href="/login">Login</a>
@@ -121,3 +125,4 @@
 <!-- Navbar -->
 
 
+</div>
