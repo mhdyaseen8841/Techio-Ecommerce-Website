@@ -1,6 +1,7 @@
 body {
     
 }
+          
 
 .form-control:focus {
     color: #495057;
@@ -1308,12 +1309,23 @@ a {
 border: none;
 }
 
+.pc-image{
+    display: block;
+}
+.sp-image{
+    display: none;
+}
 
 
 
-
-
-
+@media (max-width: 520px) {
+    .sp-image{
+        display: block;
+    }
+    .pc-image{
+        display: none;
+    }
+}
 
 
 
@@ -1873,3 +1885,4 @@ border: none;
   .dropdown:hover .dropbtn {background-color: none;
     transition: 0.9s;
 border-radius: 10%;}
+

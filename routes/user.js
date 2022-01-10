@@ -55,14 +55,17 @@ router.get('/login',(req,res)=>{
     
   res.render("user/login",{"loginErr":req.session.userloginErr})
   req.session.userloginErr=false
-  
   }
 })
 router.post('/signup',(req,res)=>{
   
   userHelper.doSignup(req.body).then((response)=>{
-     
+    let n=response.user.Name.split(' ');
+    let fname=n[0]
+   
+    
     req.session.user=response.user
+    req.session.user.fname=fname;
     req.session.userloggedIn=true
        let user=req.session.user
       let username=response.user.Name
@@ -167,7 +170,12 @@ router.post('/updateProfile',(req,res)=>{
 router.post('/login',(req,res)=>{
   userHelper.doLogin(req.body).then((response)=>{
     if(response.status){
+      let n=response.user.Name.split(' ');
+    let fname=n[0]
+      console.log(fname)
       req.session.user=response.user
+      req.session.user.fname=fname;
+      console.log(req.session.user)
       req.session.userloggedIn=true
       res.redirect('/')
     }
@@ -409,7 +417,11 @@ router.get('/edit-profile',async (req,res)=>{
 router.post('/edit-profile',(req,res)=>{
   let user=req.session.user
   userHelper.editUser(user._id,req.body).then(()=>{
-  req.session.user.Name=req.body.Name
+    let n=req.body.Name.split(' ');
+    let fname=n[0]
+      console.log(fname)
+      req.session.user.fname=fname;
+  
   console.log(req.body)
   res.redirect('/')
   
