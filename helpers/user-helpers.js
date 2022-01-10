@@ -445,7 +445,7 @@ getOrderProducts:(orderId)=>{
         
     })
 },
-generateRazorPay:(orderId,price)=>{
+generateRazorPay:(orderId,price,usr)=>{
     return new Promise((resolve,reject)=>{
         
         instance.orders.create({  amount: price*100, 
@@ -458,7 +458,7 @@ generateRazorPay:(orderId,price)=>{
                      
                      console.log(err);
                  }else{
-                     
+                     order.user=usr
                 console.log("new Order:",order)
                 resolve(order)
                  }

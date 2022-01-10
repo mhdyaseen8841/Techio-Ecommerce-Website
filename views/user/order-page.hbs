@@ -115,12 +115,14 @@
             url:'/place-order',
             method:'post',
             data:$('#checkout-form').serialize(),
-            success:(Response)=>{
+            success:(Response,data)=>{
                 
                 if(Response.cod_success){
                     location.href='/ordered-response?id=cod'
                 }
                 else{
+                  console.log('its hereeeeeee')
+                  
                     razorpayPayment(Response)
                 }
             }
@@ -135,7 +137,7 @@
     "currency": "INR",
     "name": "MohammedYaseen",
     "description": "Test Transaction",
-    "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vhv.rs%2Fviewpic%2FhTmbihT_e-commerce-png-transparent-twitter-logo-blue-png%2F&psig=AOvVaw3-ZlfI_RDIfbj-qcVWqxmh&ust=1638540508865000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPjqyJ-lxfQCFQAAAAAdAAAAABAD",
+    "image": "LOGO/payment-logo.jpg",
     "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler": function (response){
        // alert(response.razorpay_payment_id);
@@ -145,12 +147,12 @@
         verifyPayment(response,order)
     },
     "prefill": {
-        "name": "Gaurav Kumar",
-        "email": "gaurav.kumar@example.com",
-        "contact": "9999999999"
+        "name": order.user.Name ,
+        "email":  order.user.Email,
+        "contact": order.user.Mobile
     },
     "notes": {
-        "address": "Razorpay Corporate Office"
+        "address": " order.user.Address"
     },
     "theme": {
         "color": "#3399cc"

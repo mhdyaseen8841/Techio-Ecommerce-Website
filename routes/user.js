@@ -300,11 +300,12 @@ router.get('/place-order',verifyLogin,async(req,res)=>{
 router.post('/place-order',verifyLogin,async(req,res)=>{
   let products=await userHelper.getCartProductList(req.session.user._id)
     let price=await userHelper.getTotalAmount(req.session.user._id)
+    let usr=req.session.user
   userHelper.PlaceOrder(req.body,products,price).then((orderId)=>{
     if(req.body['payment-method']=='COD'){
       res.json({cod_success:true})
     }else{
-      userHelper.generateRazorPay(orderId,price).then((response)=>{
+      userHelper.generateRazorPay(orderId,price,usr).then((response)=>{
        res.json(response)
       })
     }
@@ -433,8 +434,9 @@ router.get('/products-list',async (req,res)=>{
   let user=req.session.user
   let cartCount=null;
   let lap;
-  let prod
-  let accss
+  let prod;
+  let phone;
+  let accss;
   if(user){
     cartCount=await userHelper.getCartCount(req.session.user._id)
   }
