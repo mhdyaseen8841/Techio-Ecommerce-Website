@@ -33,7 +33,7 @@ module.exports={
             return new Promise((resolve,reject)=>{
                 db.get().collection(collection.USER_COLLECTION).updateOne(
                     {_id:objectId(userId)},
-                    {$set: {Mobile: profileData.Mobile,Address:profileData.Address,Pincode:profileData.Pincode,Country:profileData.Country,State:profileData.State}}, {multi: true}).then(()=>{
+                    {$set: {Mobile: profileData.Mobile,Address:profileData.Address,Pincode:profileData.Pincode,Country:profileData.Country,State:profileData.State,Status:'active',mode:true}}, {multi: true}).then(()=>{
                          resolve()
                      })
             })
@@ -46,19 +46,24 @@ module.exports={
             if(user){
                 bcrypt.compare(userData.Password,user.Password).then((status)=>{
                     if(status){
+                        if(user.Status==='blocked'){
+                            console.log('login failed user blocked')
+                            resolve({status:false,error:'User Blocked By Admin'})
+                        }else{
                         console.log("login success")
                         response.user=user
                         response.status=true
                         resolve(response)
                     }
+                    }
                     else{
                         console.log("login failed");
-                        resolve({status:false})
+                        resolve({status:false,error:'Password does not match'})
                     }
                 })
             }else{
                 console.log("login failed")
-                resolve({status:false})
+                resolve({status:false,error:'User Not Found'})
             }
         })
     },
@@ -529,7 +534,7 @@ getUserDetails:(userId)=>{
             let user=await db.get().collection(collection.USER_COLLECTION).findOne({Email:userDetails.EmailConfirm})
         
             if(user){
-                console.log('user indttaa')
+                
                 response.Name=user.Name
                 response.Id=user._id
                 response.Email=user.Email
@@ -629,8 +634,26 @@ getUserDetails:(userId)=>{
                      resolve(response)
                  })
              })
-         }
+         },
 
+         getallusers:()=>{
+             return new Promise(async(resolve,reject)=>{
+                let users= await   db.get().collection(collection.USER_COLLECTION).find().toArray()
+                resolve(users)
+             })
+         },
+         blockUser:(userId)=>{
+             return new Promise((resolve,reject)=>{
+              db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{ $set: { "Status" : 'blocked', "mode":false } })
+              resolve()
+             })
+         },
+         unblockUser:(userId)=>{
+            return new Promise((resolve,reject)=>{
+                db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{ $set: { "Status" : 'active',"mode":true } })
+                resolve()
+               })
+         }
 
 
 

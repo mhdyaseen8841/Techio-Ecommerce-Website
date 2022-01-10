@@ -19,8 +19,8 @@
       <!-- Navbar brand -->
       <a class="navbar-brand mt-2 mt-lg-0" href="/">
         <img
-          src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"
-          height="15"
+          src="LOGO/lbb2.PNG"src=""
+          height="25"
           alt=""
           loading="lazy"
         />
@@ -104,14 +104,33 @@
     {{#if user}}
     <a class="dropdown-item" href="/user-profile">Profile</a>
     <a class="dropdown-item" href="/orders">Orders</a>
-    <a class="dropdown-item" href="/logout">Logout</a>
+     
+    <a class="dropdown-item " href="/logout">Logout</a>
     {{else}}
     <a class="dropdown-item" href="/login">Login</a>
     <a class="dropdown-item" href="/signup">Signup</a>
 
   {{/if}}
-  
-    
+    <a class="nav-link" data-toggle="modal" data-target="#exampleModal"> Logout</a>
+
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="/logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

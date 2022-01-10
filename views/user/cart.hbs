@@ -48,7 +48,11 @@
                 <div class="flexContainer">
                   <input class="input-cart" id="code" name="couponcode" placeholder="Enter your code" >
                 <button class="btn " type="submit" ><i class="fas fa-arrow-right"></i></button>
+               {{#if errorcpn}}
+                <p class="text-danger">{{errorcpn}}</p>
+                {{/if}}
                 </div>
+                
                 </form>
             
 

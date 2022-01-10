@@ -172,7 +172,8 @@ router.post('/login',(req,res)=>{
       res.redirect('/')
     }
     else{
-      req.session.userloginErr="invalid username or password"
+      console.log(response.error)
+      req.session.userloginErr=response.error
       res.redirect('/login')
     }
   })
@@ -184,7 +185,7 @@ router.get('/logout',(req,res)=>{
 })
 
 router.get('/addtocart/:id',verifyLogin,(req,res,next)=>{ 
-  console.log('hlooooooooooooo');
+  
   userHelper.addToCart(req.params.id,req.session.user._id).then(()=>{
   res.json({status:true})
   })
@@ -192,7 +193,6 @@ router.get('/addtocart/:id',verifyLogin,(req,res,next)=>{
 
 router.get('/addtowishlist/:id',verifyLogin,async (req,res,next)=>{
  userHelpers.addToWishlist(req.params.id,req.session.user._id).then(()=>{
-  console.log("hloooooooo000000000000") 
   console.log(response)
    res.json({status:true})
  })
@@ -476,7 +476,8 @@ if(products.length>0){
   
   if(coupon){
     console.log('hello its working')
-    total=total/2;
+    total=total-(total*coupon.Discount/100)
+    console.log(total)
   status=true
 
   }
@@ -496,7 +497,7 @@ if(products.length>0){
   }
  
 }
-res.render('user/cart',{products,user,'userId':req.session.user._id,allTotal,cartCount,total,orgTotal})
+res.render('user/cart',{products,user,'userId':req.session.user._id,errorcpn,allTotal,cartCount,total,orgTotal})
 })
 
 

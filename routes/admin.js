@@ -13,15 +13,23 @@ const verifyLogin=(req,res,next)=>{
 }
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/',verifyLogin,async function(req, res, next) {
   let admin=req.session.admin
 
   console.log(admin)
+  users=await userHelper.getallusers()
   productHelper.getallproducts().then((products)=>{
-    res.render('admin/view-product',{products,admin,adminn:true});
+    res.render('admin/admin-index',{products,admin,adminn:true,users});
   })
 
 });
+
+router.get('/viewproducts',verifyLogin,(req,res)=>{
+  let admin=req.session.admin
+  productHelper.getallproducts().then((products)=>{
+    res.render('admin/view-product',{products,admin,adminn:true,users});
+  })
+})
 
 router.get('/add-product', verifyLogin,(req,res,next)=>{
   let admin=req.session.admin
@@ -68,7 +76,7 @@ router.get('/login',(req,res)=>{
   if(req.session.admin){
     res.redirect("/admin")
   }else{
-  res.render("admin/login",{"loginErr":req.session.adminloginErr})
+  res.render("admin/login",{"loginErr":req.session.adminloginErr,adminn:true})
   req.session.adminloginErr=false
   
   }
@@ -102,12 +110,12 @@ router.get('/delete-product', verifyLogin,(req,res)=>{
   })
 
 })
-router.get('/edit-product',async(req,res)=>{
+router.get('/edit-product',verifyLogin,async(req,res)=>{
   let user=req.session.user
   let proId=req.query.id
   let product=await productHelper.getProductDetails(proId)
   
-  res.render("admin/edit-product",{user,admin:true,product})
+  res.render("admin/edit-product",{user,adminn:true,product})
   
 })
 
@@ -122,7 +130,7 @@ router.post('/edit-product',(req,res)=>{
       let image=req.files.Image[0]
       image.mv('./public/product-images/'+proId+'1'+'.jpg',(err,done)=>{
         if(err){
-          console.log('11111111111111111111111111111111111111111');
+        
           console.log(err)
         }
         
@@ -131,7 +139,7 @@ router.post('/edit-product',(req,res)=>{
       image=req.files.Image[1]
       image.mv('./public/product-images/'+proId+'2'+'.jpg',(err,done)=>{
         if(err){
-         console.log('22222222222222222222222222222222222222222222');
+        
           console.log(err)
         }
         
@@ -150,22 +158,22 @@ router.post('/edit-product',(req,res)=>{
   })
 })
 
-router.get('/all-orders', async (req,res)=>{
+router.get('/all-orders',verifyLogin, async (req,res)=>{
   console.log('call vann all orders')
   let products=await userHelper.getAllOrder()
   console.log('products')
-  res.render('admin/all-orders',{products})
+  res.render('admin/all-orders',{products,adminn:true})
 })
 
-router.get('/coupons',(req,res)=>{
+router.get('/coupons',verifyLogin,(req,res)=>{
   userHelper.getCoupons().then((coupons)=>{
-    res.render('admin/coupons',{coupons})
+    res.render('admin/coupons',{coupons,adminn:true})
 
   })
   
 })
-router.get('/new-coupon',(req,res)=>{
-  res.render('admin/new-coupon')
+router.get('/new-coupon',verifyLogin,(req,res)=>{
+  res.render('admin/new-coupon',{adminn:true})
 })
 
 router.post('/new-coupon',(req,res)=>{
@@ -174,10 +182,10 @@ router.post('/new-coupon',(req,res)=>{
    })
 })
 
-router.get('/edit-coupon',async(req,res)=>{
+router.get('/edit-coupon',verifyLogin,async(req,res)=>{
 couponId=req.query.id
 let coupon=await userHelper.getCouponDetails(couponId)
-  res.render('admin/edit-coupon',{coupon})
+  res.render('admin/edit-coupon',{coupon,adminn:true})
 })
 
 router.post('/edit-coupon',(req,res)=>{
@@ -187,12 +195,30 @@ router.post('/edit-coupon',(req,res)=>{
   })
 })
   
-  router.get('/delete-coupon',(req,res)=>{
+  router.get('/delete-coupon',verifyLogin,(req,res)=>{
     let couponId=req.query.id
     userHelper.deleteCoupon(couponId).then((response)=>{
       res.redirect('/admin/coupons')
   })
 
+})
+
+
+router.get('/change-user-status',verifyLogin,(req,res)=>{
+  console.log(req.query.id)
+  console.log(req.query.status);
+  if(req.query.status==='active'){
+    userHelper.blockUser(req.query.id).then(()=>{
+      console.log('Blocked')
+      res.redirect('/admin')
+    })
+  }
+  else{
+    userHelper.unblockUser(req.query.id).then(()=>{
+      console.log('unBlocked')
+      res.redirect('/admin')
+    })
+  }
 })
 
 
