@@ -97,7 +97,7 @@ router.get('/confirm-user',async (req,res)=>{
   }
   console.log(user.Email)
   const token = jwt.sign(payload, secret, {expiresIn:'15m'})
-  const link=`http://localhost:3005/reset-password/${user._id}/${token}`
+  const link=`http://localhost:3000/reset-password/${user._id}/${token}`
   sgMail.setApiKey(API_KEY)
 const message={
   to: user.Email,
