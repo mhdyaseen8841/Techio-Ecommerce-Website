@@ -43,7 +43,7 @@ router.get('/signup',(req,res)=>{
   if(req.session.userloggedIn){
     res.redirect("/")
   }else{
-  res.render("user/signup")
+   res.render("user/signup",{"signErr":req.session.usersigninErr})
   }
 })
 router.get('/login',(req,res)=>{
@@ -59,19 +59,25 @@ router.get('/login',(req,res)=>{
 })
 router.post('/signup',(req,res)=>{
   
-  userHelper.doSignup(req.body).then((response)=>{
-    let n=response.user.Name.split(' ');
-    let fname=n[0]
-   
-    
-    req.session.user=response.user
-    req.session.user.fname=fname;
-    req.session.userloggedIn=true
-       let user=req.session.user
-      let username=response.user.Name
-      let useremail=response.user.Email
-    res.render('user/profile-form',{username,user,useremail})
-  })
+   if(req.body.Email && req.body.Password && req.body.Name){
+	     userHelper.doSignup(req.body).then((response)=>{
+		         let n=response.user.Name.split(' ');
+		         let fname=n[0]
+		        
+		         
+		         req.session.user=response.user
+		         req.session.user.fname=fname;
+		         req.session.userloggedIn=true
+		            let user=req.session.user
+		           let username=response.user.Name
+		           let useremail=response.user.Email
+		         res.render('user/profile-form',{username,user,useremail})
+		       })
+   }
+	else{
+		  req.session.usersigninErr="Enter All Credentials(Name,Email,Password)"
+		   res.redirect('/signup')
+	}
 })
 router.get('/forgotPassword',(req,res)=>{
   res.render('user/forgot-password')
@@ -226,7 +232,9 @@ router.get('/cart',verifyLogin,async (req,res,next)=>{
 let products=await userHelper.getCartProducts(req.session.user._id)
 let total=0
 let allTotal=0
+	let cartquant=0
 if(products.length>0){
+	cartquant=1;
    total=await userHelper.getTotalAmount(req.session.user._id)
    
    if(total>1000){
@@ -244,7 +252,7 @@ else{
   orgTotal=false
 }
 
-res.render('user/cart',{products,user,'userId':req.session.user._id,allTotal,cartCount,total,orgTotal})
+res.render('user/cart',{products,user,'userId':req.session.user._id,cartquant,allTotal,cartCount,total,orgTotal})
   
 })
 
@@ -321,6 +329,7 @@ router.get('/ordered-response',async (req,res)=>{
   let mode=req.query.id
   let cod;
   let online;
+  userHelper.deleteuserCart(user._id)
   if(user){
     cartCount=await userHelper.getCartCount(req.session.user._id)
   }

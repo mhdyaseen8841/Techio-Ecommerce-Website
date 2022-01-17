@@ -13,9 +13,14 @@ padding: 10px" >
 	<hr>
 
 
+{{#if signErr}}
+<p class="text-danger text-center" > {{signErr}}</p>
+{{else}}
 <p class="text-success text-center">We'll never share your credentials with anyone else.</p>
 
-	
+
+{{/if}}
+
   
   <form  action="/signup" method="post" >
 

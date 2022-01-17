@@ -91,6 +91,10 @@ module.exports={
             }
         })
     },
+	 deleteuserCart:(userId)=>{
+		         db.get().collection(collection.CART_COLLECTION).deleteOne({user:objectId(userId)})
+		         resolve()
+		     },
     addToWishlist:(proId,userId)=>{
         let proObj={
             item:objectId(proId),
@@ -374,7 +378,7 @@ module.exports={
                 status:status
             }
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response)=>{
-               db.get().collection(collection.CART_COLLECTION).deleteOne({user:objectId(order.userId)})
+              
                console.log(response);
                 resolve(response.insertedId)
             })

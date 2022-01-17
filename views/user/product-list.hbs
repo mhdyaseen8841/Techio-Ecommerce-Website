@@ -1,10 +1,9 @@
- 
- <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom"> <a class="navbar-brand a-sidebar ml-2 font-weight-bold" href="#">{{prod}}</a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor" aria-controls="navbarColor" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-   
+ <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom"> <a class="navbar-brand a-sidebar ml-2 font-weight-bold" href="#">{{prod}}</a>
 </nav>
+<!--
 <div class="filter"> <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#mobile-filter" aria-expanded="false" aria-controls="mobile-filter">Filters<span class="fa fa-filter pl-1"></span></button>
-</div>
-<div id="mobile-filter">
+</div>-->
+<div id="mobile-filter" hidden>
     <div>
         <h6 class="p-1 border-bottom">Brands</h6>
         <ul class="ul-sidebar">
@@ -195,6 +194,7 @@
           <!-- End -->
         </li>
         </a>
+<hr>
         <!-- End -->
 {{/each}}
       </ul>

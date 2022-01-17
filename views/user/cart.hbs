@@ -31,7 +31,7 @@
   {{/each}}
    
 
-            <div class="back-to-shop"><a href="/">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+             <div class="back-to-shop"><a href="/">&leftarrow;<span class="text-muted">Back to shop</span></a></div>
         </div>
         <div class="col-md-4 summary">
             <div>
@@ -81,7 +81,11 @@
                 <div class="col text-right" id="alltotal" >₹<span >{{allTotal}}.00</span></div>
                 </div>
                 {{/if}}
+            {{#if cartquant}}
             <a class="btn btn-cart" href="/place-order?id={{allTotal}}">CHECKOUT</a>
+            {{else}}
+            <button class="btn btn-cart" disabled  href="/place-order?id={{allTotal}}">CHECKOUT</button>
+            {{/if}}
         </div>
     </div>
 </div>

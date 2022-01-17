@@ -14,12 +14,9 @@
     <tr>
      
       <th scope="col">Date</th>
-      <th scope="col">Address</th>
-      <th>Pincode</th>
-      <th>Mobile</th>     
+         
       <th>Amount</th>
       <th>Payment</th>
-      <th>Status</th>
       <th scope="col">Track</th>   
     </tr>
   </thead>
@@ -28,12 +25,8 @@
     <tr>
      
       <td>{{this.date}}</td>
-      <td>{{this.deliveryDetails.address}}</td>
-      <td>{{this.deliveryDetails.pincode}}</td>
-      <td>{{this.deliveryDetails.mobile}}</td>
       <td>Rs: {{this.totalAmount}}</td>
       <td>{{this.paymentMethod}}</td>
-      <td>{{this.status}}</td>
     <td><a type="button" class="btn btn-success" href="/view-order-products?id={{this._id}}">Track Order</a></td>
       
     </tr>
