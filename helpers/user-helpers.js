@@ -12,6 +12,12 @@ var instance = new Razorpay({
     key_secret: '3p8ZHSdwg5qBiUEiZHJVIKXz',
   });
 module.exports={
+    verifyUserEmail:(email)=>{
+        return new Promise(async(resolve,reject)=>{
+            let user=await db.get().collection(collection.USER_COLLECTION).findOne({Email:email})
+            resolve(user)
+        })
+    },
     doSignup:(userData)=>{
         return new Promise(async(resolve,reject)=>{
             let response={}

@@ -57,9 +57,16 @@ router.get('/login',(req,res)=>{
   req.session.userloginErr=false
   }
 })
-router.post('/signup',(req,res)=>{
-  
+
+router.post('/signup',async(req,res)=>{
+  let useremailverify
    if(req.body.Email && req.body.Password && req.body.Name){
+
+     useremailverify=await userHelper.verifyUserEmail(req.body.Email)
+     if(useremailverify){
+      req.session.usersigninErr="User with this email already exist"
+      res.redirect('/signup')
+     }
 	     userHelper.doSignup(req.body).then((response)=>{
 		         let n=response.user.Name.split(' ');
 		         let fname=n[0]
@@ -492,9 +499,11 @@ let products=await userHelper.getCartProducts(req.session.user._id)
 let total=0
 let allTotal=0
 let errorcpn=null;
+let cartquant=0
 let status
 let coupon=await userHelper.getCouponDetails(couponId)
 if(products.length>0){
+  cartquant=1;
   total=await userHelper.getTotalAmount(req.session.user._id)
   
   if(coupon){
@@ -520,7 +529,7 @@ if(products.length>0){
   }
  
 }
-res.render('user/cart',{products,user,'userId':req.session.user._id,errorcpn,allTotal,cartCount,total,orgTotal})
+res.render('user/cart',{products,user,'userId':req.session.user._id,errorcpn,allTotal,cartCount,total,cartquant,orgTotal})
 })
 
 
