@@ -44,6 +44,7 @@ router.get('/signup',(req,res)=>{
     res.redirect("/")
   }else{
    res.render("user/signup",{"signErr":req.session.usersigninErr})
+   req.session.usersigninErr=null;
   }
 })
 router.get('/login',(req,res)=>{
@@ -67,6 +68,7 @@ router.post('/signup',async(req,res)=>{
       req.session.usersigninErr="User with this email already exist"
       res.redirect('/signup')
      }
+     else{
 	     userHelper.doSignup(req.body).then((response)=>{
 		         let n=response.user.Name.split(' ');
 		         let fname=n[0]
@@ -80,6 +82,7 @@ router.post('/signup',async(req,res)=>{
 		           let useremail=response.user.Email
 		         res.render('user/profile-form',{username,user,useremail})
 		       })
+          }
    }
 	else{
 		  req.session.usersigninErr="Enter All Credentials(Name,Email,Password)"
